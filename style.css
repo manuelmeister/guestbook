@@ -58,7 +58,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #919191;
+    color: #ffffff;
     padding: 11px 5px 11px 5px;
     height: 20px;
     display: inline-block;
@@ -122,6 +122,7 @@ td strong {
     margin-top: 10px;
     padding: 10px;
     background: #e1e1e1;
+    position: relative;
 }
 
 .right {
@@ -130,6 +131,11 @@ td strong {
 
 .error {
     background: #ff543c;
+    color: #ffffff;
+}
+
+.hidden {
+    display: none;
 }
 
 .red {
@@ -150,9 +156,16 @@ td strong {
     opacity: 1;
 }
 
+input[type="text"],input[type="password"],input[type="submit"]{
+    height: 24px;
+    margin: 6px 2px;
+    padding: 3px;
+    border: none;
+}
+
 input[type="submit"]{
     width: 217px;
-    height: 32px!important;
+    height: 32px;
     -webkit-appearance: none;
     background-color: #282828;
     transition: 0.5s all;
@@ -178,71 +191,63 @@ input[type="submit"]:hover{
     font-size: 14px;
 }
 
+#form input[type="submit"]{
+    height: 32px;
+}
+
 #login input[type="submit"]{
     width: 75px;
-    height: 30px!important;
+    height: 30px;
     margin: 6px 2px;
     margin-right: 5px;
     background: #505050;
     font-size: 12px;
 }
 
-input[type="text"],input[type="password"],input[type="submit"]{
-    height: 24px;
-    margin: 6px 2px;
-    padding: 3px;
-    border: none;
+.tools{
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
-#register {
-    width: 200px;
+.tools form {
+    display: inline-block;
+}
+
+.tools input{
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0.5;
+    margin:0;
+    padding: 0;
+}
+
+.tools input[type="submit"]:hover{
+    opacity: 0.8;
+    background-color: transparent;
+
+}
+
+.edit {
+    background-image: url(img/edit-512.png);
+}
+
+.delete {
+    background-image: url(img/delete-512.png);
+}
+
+
+.registerform {
+    width: 250px;
     margin: auto 0;
 }
 
-.field {
-    position: relative;
-    padding-bottom: 1.875em;
-    margin-bottom: 1.875em;
-    max-width: 20em;
-}
-
-.field__label {
-    display: block;
-    position: absolute;
-    top: 0;
-    font-size: 0.75em;
-    line-height: 1.25em;
-    font-weight: bold;
-    color: #2996cc;
-    opacity: 0;
-    transition: 0.3s opacity, 0.3s top;
-}
-
-.field__input:valid + .field__label,
-.field__input:focus + .field__label {
-    top: -12px;
-    opacity: 1;
-}
-
-.field__input {
-    display: block;
-    box-sizing: border-box;
-    font-size: 1em;
-    line-height: 1.25em;
-    padding: 0.3125em 0;
-    height: 1.875em;
-    width: 100%;
-    border: 0;
-    outline: none;
-    border-bottom: 0.125em solid #bbbbbb;
-}
-.field__input:focus {
-    border-bottom-color: #2996cc;
-}
-
-#textarea {
-    width: 625px;
-    height: 32px;
-    margin-right: 5px;
-    border: none;
+.field__label{
+    width:100px;
+    display: inline-block;
 }

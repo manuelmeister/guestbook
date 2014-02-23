@@ -16,7 +16,7 @@ if (isset($_POST["register"])) {
     if (strlen($username) == 0){
         $error_msg .= "Er wurde keinen Titel eingegeben. ";
     } else {
-        $sql = $db->query("INSERT INTO users (username, password) VALUES ( '$username', '$password');");
+        $sql = $db->query("INSERT INTO user (username, password) VALUES ( '$username', '$password');");
     }
 }
 
@@ -38,19 +38,22 @@ if (isset($_POST["register"])) {
     <div id="content" style="clear: both">
         <div class="entry registercontainer">
             <h2>Registrieren</h2>
-            <form name="registerform" method="post" action="register.php" id="register">
+            <form name="registerform" method="post" action="register.php">
                 <div class="field">
-                    <input class="field__input" type="text" name="username" placeholder="Username" required>
                     <label class="field__label" for="username">Username</label>
-                </div><div class="field">
-                    <input class="field__input" type="password" name="password" placeholder="Password">
+                    <input class="field__input" type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="field">
                     <label class="field__label" for="password">Password</label>
-                </div><div class="field">
-                    <input class="field__input" type="text" name="firstname" placeholder="Vorname">
+                    <input class="field__input" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="field">
                     <label class="field__label" for="firstname">Vorname</label>
-                </div><div class="field">
-                    <input class="field__input" type="text" name="familyname" placeholder="Nachname">
+                    <input class="field__input" type="text" name="firstname" placeholder="Vorname">
+                </div>
+                <div class="field">
                     <label class="field__label" for="familyname">Nachname</label>
+                    <input class="field__input" type="text" name="familyname" placeholder="Nachname">
                 </div>
                 <input type="submit" name="register" value="Registrieren">
                 <p><?php

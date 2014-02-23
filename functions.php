@@ -31,7 +31,7 @@ if (isset($_POST["login"])) {
 
     $password = md5($_POST["password"]);
 
-    $result = $db->query("SELECT username, password FROM users WHERE username='$username' LIMIT 1");
+    $result = $db->query("SELECT username, password FROM user WHERE username='$username' LIMIT 1");
     if($result->num_rows > 0){
         $user = $result->fetch_object();
 
@@ -51,15 +51,16 @@ if (isset($_POST["login"])) {
 if (isset($_POST["Submit"])) {
     $_SESSION['login'] = 1;
     $username = $_SESSION["username"];
-    $title = trim($_POST["title"]);
+    $title = utf8_decode(trim($_POST["title"]));
     if (strlen($title) == 0 || $title == "Titel"){
         $error_msg .= "Er wurde keinen Titel eingegeben. ";
     }
-    $entry = trim($_POST["entry"]);
+    $entry = utf8_decode(trim($_POST["entry"]));
     if (strlen($entry) == 0 || $entry == "Text"){
         $error_msg .= "Er wurde keinen Text eingegeben. ";
     } else {
         $error_msg = "";
+
         $sql = $db->query("INSERT INTO guestbook (username, title, content) VALUES ( '$username', '$title', '$entry');");
         $name = "";
         $title = "";
@@ -67,10 +68,10 @@ if (isset($_POST["Submit"])) {
     }
 }
 
-if (isset($_GET["action"]) && $_GET["action"] == 'delete') {
+if (isset($_POST['delete'])) {
     $_SESSION['login'] = 1;
-    $id = $_GET['id'];
-    $db->query("DELETE FROM guestbook where id='$id'");
+    $id = $_POST['id'];
+        $db->query("DELETE FROM guestbook where id='$id'");
 }
 
 if (isset($_SESSION["username"])) {

@@ -1,4 +1,5 @@
 <?php
+
 include 'functions.php';
 include 'header.php';
 ?>
@@ -30,8 +31,9 @@ include 'header.php';
             array_push($entries,${'entry_' . $r->id});
         }
 
+        $entry_template = file_get_contents('entry.html');
         foreach($entries as $e){
-            $e->getHtml();
+            echo $e->getHtml($entry_template);
         }
 
         ?>

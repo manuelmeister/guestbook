@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="de-CH">
 <head>
-
-    <meta charset="UTF-8">
     <title>Testsite</title>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
 </head>
 <body>
 <div id="container">
@@ -25,7 +24,8 @@
                 <a>' . $username . '</a>
             </li>
                 ';
-            }else{
+            }
+            else {
                 echo '
                 <form id="login" name="login" method="post" action="index.php">
                     <input type="text" name="username" placeholder="Benutzername">

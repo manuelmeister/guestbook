@@ -1,0 +1,15 @@
+<div class="entry">
+    <div class="tools {TOOLS_VISIBILITY}">
+        <form action="edit.php" method="post">
+            <input name="id" value="{ENTRY_ID}" type="hidden">
+            <input type="submit" name="edit" value="" class="edit">
+        </form>
+        <form action="index.php" method="post">
+            <input name="id" value="{ENTRY_ID}" type="hidden">
+            <input type="submit" name="delete" value="" class="delete">
+        </form>
+    </div>
+    <h3>{ENTRY_TITLE}</h3>
+    <a class="date">{ENTRY_DATE} von {ENTRY_USER}</a>
+    <p>{ENTRY_CONTENT}</p>
+</div>
