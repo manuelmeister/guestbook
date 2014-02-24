@@ -31,7 +31,7 @@ class entry
     {
         $tools_visibility_string = 'hidden';
         if ($_SESSION['login']) {
-            if ($this->user == $_SESSION['username']) {
+            if ($this->user == $_SESSION['username'] || $_SESSION['admin']) {
                 $tools_visibility_string = '';
             }
         }

@@ -247,6 +247,10 @@ input[type="submit"]:hover{
     margin: auto 0;
 }
 
+.searchfrom input[type="text"]{
+    width: 75%;
+}
+
 .field__label{
     width:100px;
     display: inline-block;

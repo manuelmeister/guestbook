@@ -5,7 +5,7 @@
  * Date: 19.02.14
  * Time: 17:22
  */
-include "connect.php";
+require "connect.php";
 include "entry.php";
 
 if (isset($_POST["logout"])) {
@@ -31,13 +31,14 @@ if (isset($_POST["login"])) {
 
     $password = md5($_POST["password"]);
 
-    $result = $db->query("SELECT username, password FROM user WHERE username='$username' LIMIT 1");
+    $result = $db->query("SELECT username, password, admin FROM user WHERE username='$username' LIMIT 1");
     if($result->num_rows > 0){
         $user = $result->fetch_object();
 
         if ($user->password == $password) {
             $_SESSION["login"] = 1;
             $_SESSION["username"] = $username;
+            $_SESSION["admin"] = $user->admin;
         } else {
             $error_msg = "Falsches Passwort.";
             $_SESSION["login"] = false;
