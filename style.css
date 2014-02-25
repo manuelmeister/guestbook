@@ -69,6 +69,10 @@ nav ul li a:hover {
     background-color: #404040;
 }
 
+nav ul li a:active {
+    background-color: #636363;
+}
+
 nav ul li a:first-child {
     padding-left: 10px;
 }
@@ -247,8 +251,17 @@ input[type="submit"]:hover{
     margin: auto 0;
 }
 
-.searchfrom input[type="text"]{
+.searchform {
+    margin: 10px 0;
+}
+
+.searchform>input[type="text"]{
+    display: inline-block;
     width: 75%;
+}
+
+.marked {
+    background-color: #ffe494;
 }
 
 .field__label{

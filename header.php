@@ -10,7 +10,8 @@
     <a href="index.php" id="logo"><h1>Guestbook</h1></a>
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="search.php">Suchen</a></li>
             <li><a href="register.php">Registrieren</a></li>
             <li class="right">
             <?php
