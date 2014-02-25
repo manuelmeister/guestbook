@@ -9,16 +9,17 @@
 require("connect.php");
 $error_msg = "";
 
-    function clean($var) {
-        $var = utf8_decode(trim($var));
-    }
+function clean($var)
+{
+    $var = utf8_decode(trim($var));
+}
 
 if (isset($_POST["register"])) {
     $password = md5($_POST["password"]);
     clean($username = $_POST["username"]);
     clean($firstname = $_POST["firstname"]);
     clean($familyname = $_POST["familyname"]);
-    if (strlen($username) == 0){
+    if (strlen($username) == 0) {
         $error_msg .= "Er wurde keinen Titel eingegeben. ";
     } else {
         $sql = $db->query("INSERT INTO user (username, password, firstname, name) VALUES ( '$username', '$password', '$firstname', '$familyname');");
@@ -44,6 +45,7 @@ if (isset($_POST["register"])) {
     <div id="content" style="clear: both">
         <div class="entry registercontainer">
             <h2>Registrieren</h2>
+
             <form name="registerform" method="post" action="register.php">
                 <div class="field">
                     <label class="field__label" for="username">Username</label>
@@ -62,7 +64,8 @@ if (isset($_POST["register"])) {
                     <input class="field__input" type="text" name="familyname" placeholder="Nachname">
                 </div>
                 <input type="submit" name="register" value="Registrieren">
-                <p><?php echo $error_msg;?></p>
+
+                <p><?php echo $error_msg; ?></p>
             </form>
         </div>
     </div>

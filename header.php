@@ -14,9 +14,9 @@
             <li><a href="search.php">Suchen</a></li>
             <li><a href="register.php">Registrieren</a></li>
             <li class="right">
-            <?php
-            if ($_SESSION["login"]) {
-                echo '
+                <?php
+                if ($_SESSION["login"]) {
+                    echo '
                 <form id="login" name="login" method="post" action="index.php">
                     <input type="submit" name="logout" value="Logout">
                 </form>
@@ -25,16 +25,15 @@
                 <a>' . $username . '</a>
             </li>
                 ';
-            }
-            else {
-                echo '
+                } else {
+                    echo '
                 <form id="login" name="login" method="post" action="index.php">
                     <input type="text" name="username" placeholder="Benutzername">
                     <input type="password" name="password" placeholder="Password">
                     <input type="submit" name="login" value="Login">
                 </form>
             </li>';
-            }
-            ?>
+                }
+                ?>
         </ul>
     </nav>

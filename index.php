@@ -17,8 +17,8 @@ include 'header.php';
         </div>';
 
         }
-        if($error_msg != ""){
-            echo '<div class="entry error">'.$error_msg.'</div>';
+        if ($error_msg != "") {
+            echo '<div class="entry error">' . $error_msg . '</div>';
         }
 
         $rs = $db->query("SELECT * FROM guestbook ORDER BY datepublished DESC");
@@ -26,13 +26,13 @@ include 'header.php';
 
         $entries = Array();
 
-        while ($r = $rs->fetch_object()){
-            ${'entry_' . $r->id} = new entry($r->id,$r->datepublished,$r->username,$r->title,$r->content);
-            array_push($entries,${'entry_' . $r->id});
+        while ($r = $rs->fetch_object()) {
+            ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
+            array_push($entries, ${'entry_' . $r->id});
         }
 
         $entry_template = file_get_contents('entry.html');
-        foreach($entries as $e){
+        foreach ($entries as $e) {
             echo $e->getHtml($entry_template);
         }
 

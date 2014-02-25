@@ -3,7 +3,6 @@
  * Date: 20.01.14
  * Time: 13:58
  */
-
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
 
 body {
@@ -17,7 +16,7 @@ nav {
 
 }
 
-p{
+p {
     text-align: left;
     font-weight: 200;
 }
@@ -28,7 +27,6 @@ h1 {
     margin: 10px 0;
     text-decoration: none;
     color: #000000;
-    text-decoration-line: none;
 }
 
 h2 {
@@ -36,7 +34,7 @@ h2 {
     padding-bottom: 10px;
 }
 
-h3{
+h3 {
     margin: 0;
 }
 
@@ -80,6 +78,7 @@ nav ul li a:first-child {
 nav ul li a:last-child {
     padding-right: 10px;
 }
+
 table {
     border-collapse: collapse;
     border: none;
@@ -107,15 +106,6 @@ td strong {
     padding: 20px;
     width: 960px;
     background-color: #fff;
-}
-
-#add {
-    padding: 10px;
-    background: #cbcbcb;
-}
-
-#form {
-    display: flex;
 }
 
 #logo {
@@ -156,18 +146,18 @@ td strong {
     transition: all 0.5s;
 }
 
-.actions:hover{
+.actions:hover {
     opacity: 1;
 }
 
-input[type="text"],input[type="password"],input[type="submit"]{
+input[type="text"], input[type="password"], input[type="submit"] {
     height: 24px;
     margin: 6px 2px;
     padding: 3px;
     border: none;
 }
 
-input[type="submit"]{
+input[type="submit"] {
     width: 217px;
     height: 32px;
     -webkit-appearance: none;
@@ -180,11 +170,11 @@ input[type="submit"]{
     padding: 0;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover {
     background-color: #535353;
 }
 
-#form input[type="text"]{
+#form input[type="text"] {
     height: 32px;
     -webkit-appearance: none;
     background-color: #ffffff;
@@ -195,11 +185,11 @@ input[type="submit"]:hover{
     font-size: 14px;
 }
 
-#form input[type="submit"]{
+#form input[type="submit"] {
     height: 32px;
 }
 
-#login input[type="submit"]{
+#login input[type="submit"] {
     width: 75px;
     height: 30px;
     margin: 6px 2px;
@@ -208,7 +198,7 @@ input[type="submit"]:hover{
     font-size: 12px;
 }
 
-.tools{
+.tools {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -218,20 +208,18 @@ input[type="submit"]:hover{
     display: inline-block;
 }
 
-.tools input{
+.tools input {
     background-size: 24px;
-    background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0);
-    background-position: center;
+    background: rgba(0, 0, 0, 0) no-repeat center;
     width: 24px;
     height: 24px;
     cursor: pointer;
     opacity: 0.5;
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
-.tools input[type="submit"]:hover{
+.tools input[type="submit"]:hover {
     opacity: 0.8;
     background-color: transparent;
 
@@ -245,7 +233,6 @@ input[type="submit"]:hover{
     background-image: url(img/delete-512.png);
 }
 
-
 .registerform {
     width: 250px;
     margin: auto 0;
@@ -255,7 +242,7 @@ input[type="submit"]:hover{
     margin: 10px 0;
 }
 
-.searchform>input[type="text"]{
+.searchform > input[type="text"] {
     display: inline-block;
     width: 75%;
 }
@@ -264,7 +251,7 @@ input[type="submit"]:hover{
     background-color: #ffe494;
 }
 
-.field__label{
-    width:100px;
+.field__label {
+    width: 100px;
     display: inline-block;
 }
