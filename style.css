@@ -112,6 +112,11 @@ td strong {
     text-decoration: none;
 }
 
+#add {
+    background-color: #898989;
+    padding: 10px;
+}
+
 .entry {
     margin-top: 10px;
     padding: 10px;
