@@ -112,7 +112,7 @@ if (isset($_POST["register"])) {
     if (strlen($username) == 0) {
         $error_msg .= "Er wurde keinen Titel eingegeben. ";
     } else {
-        $sql = $db->query("INSERT INTO user (username, password, firstname, name) VALUES ( '$username', '$password', '$firstname', '$familyname');");
+        $sql = $db->query("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
         if (!mysqli_error($db)) {
             $error_msg = 'Erfolgreich eingefügt';
         } else {
