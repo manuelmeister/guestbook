@@ -5,8 +5,9 @@
  * Date: 19.02.14
  * Time: 17:22
  */
-require "connect.php";
-include "entry.php";
+require 'connect.php';
+require 'settings.php';
+include 'entry.php';
 
 if (isset($_POST["logout"])) {
     if (session_status() == PHP_SESSION_ACTIVE) {
@@ -27,40 +28,40 @@ $error_msg = "";
 /**
  * $db mysqli
  */
-if (isset($_POST["login"])) {
-    $username = $db->real_escape_string($_POST["username"]);
+if (isset($_POST['login'])) {
+    $username = $db->real_escape_string($_POST['username']);
 
-    $password = md5($_POST["password"]);
+    $password = md5($_POST['password']);
 
     $result = $db->query("SELECT username, password, admin FROM user WHERE username='$username' LIMIT 1");
     if ($result->num_rows > 0) {
         $user = $result->fetch_object();
 
         if ($user->password == $password) {
-            $_SESSION["login"] = 1;
-            $_SESSION["username"] = $username;
-            $_SESSION["admin"] = $user->admin;
+            $_SESSION['login'] = 1;
+            $_SESSION['username'] = $username;
+            $_SESSION['admin'] = $user->admin;
         } else {
-            $error_msg = "Falsches Passwort.";
-            $_SESSION["login"] = false;
+            $error_msg = 'Falsches Passwort.';
+            $_SESSION['login'] = false;
         }
     } else {
-        $error_msg = "Falscher Benutzername oder falsches Passwort.";
-        $_SESSION["login"] = false;
+        $error_msg = 'Falscher Benutzername oder falsches Passwort.';
+        $_SESSION['login'] = false;
     }
 }
 
 
-if (isset($_POST["Submit"])) {
+if (isset($_POST['submit'])) {
     $_SESSION['login'] = 1;
-    $username = $_SESSION["username"];
-    $title = utf8_decode(trim($_POST["title"]));
-    if (strlen($title) == 0 || $title == "Titel") {
-        $error_msg .= "Er wurde keinen Titel eingegeben. ";
+    $username = $_SESSION['username'];
+    $title = utf8_decode(trim($_POST['title']));
+    if (strlen($title) == 0 || $title == 'Titel') {
+        $error_msg .= 'Er wurde keinen Titel eingegeben.';
     }
-    $entry = utf8_decode(trim($_POST["entry"]));
-    if (strlen($entry) == 0 || $entry == "Text") {
-        $error_msg .= "Er wurde keinen Text eingegeben. ";
+    $entry = utf8_decode(trim($_POST['entry']));
+    if (strlen($entry) == 0 || $entry == 'Text') {
+        $error_msg .= 'Er wurde keinen Text eingegeben.';
     } else {
         $error_msg = "";
 
@@ -96,19 +97,18 @@ if (isset($_POST['delete'])) {
     $db->query("DELETE FROM guestbook WHERE id='$id'");
 }
 
-function clean(&$var)
-{
+function clean(&$var){
     return utf8_decode(trim($var));
 }
 
-if (isset($_POST["register"])) {
-    $password = md5($_POST["password"]);
-    $username = clean($_POST["username"]);
-    $firstname = clean($_POST["firstname"]);
-    $familyname = clean($_POST["familyname"]);
+if (isset($_POST['register'])) {
+    $password = md5($_POST['password']);
+    $username = clean($_POST['username']);
+    $firstname = clean($_POST['firstname']);
+    $familyname = clean($_POST['familyname']);
 
     if (strlen($username) == 0) {
-        $error_msg .= "Er wurde keinen Titel eingegeben. ";
+        $error_msg .= 'Er wurde keinen Titel eingegeben.';
     } else {
         $sql = $db->query("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
         if (!mysqli_error($db)) {
@@ -119,6 +119,6 @@ if (isset($_POST["register"])) {
     }
 }
 
-if (isset($_SESSION["username"])) {
-    $username = $_SESSION["username"];
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
 }

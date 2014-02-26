@@ -238,6 +238,25 @@ input[type="submit"]:hover {
     background-image: url(img/delete-512.png);
 }
 
+.entry-nav {
+    margin-top: 10px;
+}
+
+.entry-nav nav ul {
+    position: relative;
+    background-color: #747474;
+}
+
+.entry-nav nav ul li a{
+    color: #000000;
+}
+.left-entry-nav {
+    position: absolute;
+    right: 0;
+}
+
+
+/* REGISTER */
 .registerform {
     width: 250px;
     margin: auto 0;
@@ -247,6 +266,12 @@ input[type="submit"]:hover {
     display: inline-block;
 }
 
+.field__label {
+    width: 100px;
+    display: inline-block;
+}
+
+/* SEARCH */
 .searchform {
     margin: 10px 0;
 }
@@ -258,9 +283,4 @@ input[type="submit"]:hover {
 
 .marked {
     background-color: #ffe494;
-}
-
-.field__label {
-    width: 100px;
-    display: inline-block;
 }
