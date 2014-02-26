@@ -98,6 +98,28 @@ if (isset($_POST['delete'])) {
     $db->query("DELETE FROM guestbook WHERE id='$id'");
 }
 
+function clean(&$var)
+{
+    $var = utf8_decode(trim($var));
+}
+
+if (isset($_POST["register"])) {
+    $password = md5($_POST["password"]);
+    clean($username = $_POST["username"]);
+    clean($firstname = $_POST["firstname"]);
+    clean($familyname = $_POST["familyname"]);
+    if (strlen($username) == 0) {
+        $error_msg .= "Er wurde keinen Titel eingegeben. ";
+    } else {
+        $sql = $db->query("INSERT INTO user (username, password, firstname, name) VALUES ( '$username', '$password', '$firstname', '$familyname');");
+        if (!mysqli_error($db)) {
+            $error_msg = 'Erfolgreich eingefügt';
+        } else {
+            $error_msg = mysqli_error($db);
+        }
+    }
+}
+
 if (isset($_SESSION["username"])) {
     $username = $_SESSION["username"];
 }
