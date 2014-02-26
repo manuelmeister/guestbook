@@ -238,6 +238,10 @@ input[type="submit"]:hover {
     margin: auto 0;
 }
 
+.registerinfo {
+    display: inline-block;
+}
+
 .searchform {
     margin: 10px 0;
 }

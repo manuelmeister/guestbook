@@ -18,8 +18,6 @@ if (isset($_POST["logout"])) {
     if (session_id() == "") {
         session_start();
     }
-    $_SESSION['login'] = 0;
-
 }
 
 $title = "";

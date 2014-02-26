@@ -4,10 +4,13 @@ function check_username() {
         $.ajax({
             method: 'POST',
             url: "check_username.php",
-            dataType: 'json',
             data: {'username': username},
-            success: function (data) {
-                console.log(data);
+            success: function (username_exists) {
+                if(username_exists){
+                    $('.usernameinfo').text("Diesen Benutzernamen gibt es bereits!");
+                }else{
+                    $('.usernameinfo').text("");
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log(textStatus);

@@ -17,18 +17,19 @@ include 'header.php';
                     <label class="field__label" for="username">Username</label>
                     <input class="field__input" type="text" name="username" placeholder="Username"
                            id="username_inputfield" onblur="check_username()" required/>
+                    <p class="usernameinfo registerinfo"></p>
                 </div>
                 <div class="field">
                     <label class="field__label" for="password">Password</label>
-                    <input class="field__input" type="password" name="password" placeholder="Password"/>
+                    <input class="field__input" type="password" name="password" placeholder="Password" required/>
                 </div>
                 <div class="field">
                     <label class="field__label" for="firstname">Vorname</label>
-                    <input class="field__input" type="text" name="firstname" placeholder="Vorname"/>
+                    <input class="field__input" type="text" name="firstname" placeholder="Vorname" required/>
                 </div>
                 <div class="field">
                     <label class="field__label" for="familyname">Nachname</label>
-                    <input class="field__input" type="text" name="familyname" placeholder="Nachname"/>
+                    <input class="field__input" type="text" name="familyname" placeholder="Nachname" required/>
                 </div>
                 <input type="submit" name="register" value="Registrieren">
 
