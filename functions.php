@@ -100,14 +100,15 @@ if (isset($_POST['delete'])) {
 
 function clean(&$var)
 {
-    $var = utf8_decode(trim($var));
+    return utf8_decode(trim($var));
 }
 
 if (isset($_POST["register"])) {
     $password = md5($_POST["password"]);
-    clean($username = $_POST["username"]);
-    clean($firstname = $_POST["firstname"]);
-    clean($familyname = $_POST["familyname"]);
+    $username = clean($_POST["username"]);
+    $firstname = clean($_POST["firstname"]);
+    $familyname = clean($_POST["familyname"]);
+
     if (strlen($username) == 0) {
         $error_msg .= "Er wurde keinen Titel eingegeben. ";
     } else {
