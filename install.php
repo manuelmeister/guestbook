@@ -22,7 +22,7 @@ content TEXT(140) DEFAULT NULL,
 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8;");
 if (!$install) {
-    exit('<div class="entry error">Datenbankfehler: ' . mysqli_connect_error() . ' und Fehlernummer:' . mysqli_errno($db) . '</div>');
+    exit('<div class="entry error">Datenbankfehler guestbook: ' . mysqli_connect_error() . ' und Fehlernummer:' . mysqli_errno($db) . '</div>');
 }
 
 $install = $db->query("CREATE TABLE user (
@@ -36,7 +36,7 @@ admin BOOLEAN NOT NULL,
 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8;");
 if (!$install) {
-    exit('<div class="entry error">Datenbankfehler: ' . mysqli_connect_error() . ' und Fehlernummer:' . mysqli_errno($db) . '</div>');
+    exit('<div class="entry error">Datenbankfehler user: ' . mysqli_connect_error() . ' und Fehlernummer:' . mysqli_errno($db) . '</div>');
 } else {
     echo '<div class="entry">Keinen Fehler gefunden! Alles Prima und gut installiert.</div>';
 }
