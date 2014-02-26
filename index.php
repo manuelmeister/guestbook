@@ -58,7 +58,7 @@ include 'header.php';
             array_push($entries, ${'entry_' . $r->id});
         }
 
-        $entry_template = file_get_contents('entry.html');
+        $entry_template = file_get_contents('templates/entry.html');
         foreach ($entries as $e) {
             echo $e->getHtml($entry_template);
         }

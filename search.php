@@ -25,7 +25,7 @@ if (isset($_POST['search'])) {
         array_push($found_entries, ${'entry_' . $found_entry->id});
     }
     if ($found_entries) {
-        $entry_template = file_get_contents('entry.html');
+        $entry_template = file_get_contents('templates/entry.html');
         foreach ($found_entries as $e) {
             echo str_replace(array(
                 $search_value, ucwords($search_value), ucfirst($search_value)
