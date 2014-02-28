@@ -124,6 +124,11 @@ td strong {
     position: relative;
 }
 
+.entry h3 a {
+    text-decoration: none;
+    color: #000000;
+}
+
 .right {
     float: right;
 }
