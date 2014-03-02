@@ -32,54 +32,108 @@ include 'header.php';
 
         $num_rs_db = $db->query("SELECT id FROM guestbook");
         $number_rows = $num_rs_db->num_rows;
-
-        $stmt = $db->prepare("SELECT * FROM guestbook ORDER BY datepublished DESC LIMIT ?,? ");
-        $stmt->bind_param('ss', $first_entry, $ENTRY_SHOWN_PER_PAGE);
-        $stmt->execute();
-        $rs = $stmt->get_result();
-
-        $displayed_rows = $rs->num_rows;
-
         $last_page = ($number_rows - ($number_rows % $ENTRY_SHOWN_PER_PAGE)) / $ENTRY_SHOWN_PER_PAGE;
 
-        if ($current_page == 0) {
-            $prev_page = 0;
-        } else {
-            $prev_page = $current_page - 1;
-        }
+        if($current_page > $last_page){
+            header("HTTP/1.0 404 Not Found");
+            echo '<p class="entry error">Fehler 404: Seite nicht Gefunden!</p>';
+        }else{
+            $stmt = $db->prepare("SELECT * FROM guestbook ORDER BY datepublished DESC LIMIT ?,? ");
+            $stmt->bind_param('ss', $first_entry, $ENTRY_SHOWN_PER_PAGE);
+            $stmt->execute();
+            $rs = $stmt->get_result();
 
-        if ($current_page == $last_page) {
-            $next_page = $current_page;
-        } else {
-            $next_page = $current_page + 1;
-        }
+            $displayed_rows = $rs->num_rows;
 
-        $entries = Array();
 
-        while ($r = $rs->fetch_object()) {
-            ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
-            array_push($entries, ${'entry_' . $r->id});
-        }
+            if ($current_page == 0) {
+                $prev_page = 0;
+            } else {
+                $prev_page = $current_page - 1;
+            }
 
-        $entry_template = file_get_contents('templates/entry.html');
-        foreach ($entries as $e) {
-            echo $e->getHtml($entry_template);
-        }
+            if ($current_page == $last_page) {
+                $next_page = $current_page;
+            } else {
+                $next_page = $current_page + 1;
+            }
 
-        echo "<div class='entry-nav'>
+            $entries = Array();
+
+            while ($r = $rs->fetch_object()) {
+                ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
+                array_push($entries, ${'entry_' . $r->id});
+            }
+
+            $entry_template = file_get_contents('templates/entry.html');
+            foreach ($entries as $e) {
+                echo $e->getHtml($entry_template);
+            }
+
+
+            function page_request($current_page, $i)
+            {
+                return ($i == $current_page ? "<li class='current-page'><a href='index.php?page=$i'>$i</a></li>" : "<li><a href='index.php?page=$i'>$i</a></li>");
+            }
+
+            function getPages($current_page, $last_page)
+            {
+                $page_items_shown = 5;
+                $output = '<div class="page-nav">';
+                if ($last_page > $page_items_shown) {
+                    $i = 0;
+                    $j1 = $j2 = $current_page - ($page_items_shown-1)/2;
+                    $k1 = $k2 = $current_page + ($page_items_shown-1)/2;
+                    if($j1 > 1){
+                        $output .= "<li><a href='index.php?page=0'>0</a></li>";
+                        $output .= "<li><a>...</a></li>";
+                    }elseif($j1 == 1){
+                        $output .= "<li><a href='index.php?page=0'>0</a></li>";
+                    }
+                    while ($i < $page_items_shown) {
+                        if ($j2 < 0) {
+                            $j2++;
+                            $k2++;
+                        } elseif ($k2 > $last_page) {
+                            $k2--;
+                            $j2--;
+                        } else {
+                            $output .= page_request($current_page, $j2);
+                            $j2++;
+                            $i++;
+                        }
+                    }
+                    if($k1 < $last_page-1){
+                        $output .= "<li><a>...</a></li>";
+                        $output .= "<li><a href='index.php?page=$last_page'>$last_page</a></li>";
+                    }elseif($k1 == $last_page-1){
+                        $output .= "<li><a href='index.php?page=$last_page'>$last_page</a></li>";
+                    }
+                } else {
+                    for ($i = 0; $i < $last_page; $i++) {
+                        $output .= page_request($current_page, $i);
+                    }
+                }
+                $output .= '</div>';
+                return $output;
+            }
+
+            echo "<div class='entry-nav'>
             <nav>
-                <ul>
                     <div>
                         <li><a href='index.php?page=0'><img src='img/first-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Erste Seite</a></li>
                         <li><a href='index.php?page=$prev_page'><img src='img/arrow-left-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Vorherige Seite</a></li>
-                    </div>
-                    <div class='left-entry-nav'>
+                    </div>";
+            echo getPages($current_page, $last_page);
+            echo "      <div class='left-entry-nav'>
                         <li><a href='index.php?page=$next_page'>Nächste Seite<img src='img/arrow-right-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>
                         <li><a href='index.php?page=$last_page'>Letzte Seite<img src='img/last-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>
                     </div>
-                </ul>
             </nav>
         </div>";
+        }
+
+
 
         ?>
 

@@ -255,23 +255,41 @@ input[type="submit"]:hover {
     margin-top: 10px;
 }
 
-.entry-nav nav ul {
+.entry-nav nav {
+    text-align: center;
     position: relative;
     background: none;
+    display: block;
+    list-style: none;
 }
 
-.entry-nav nav ul li a:hover {
-    background-color: #e1e1e1;
+.entry-nav nav div {
+    display: inline-block;
 }
 
-.entry-nav nav ul li a{
+.entry-nav nav div li{
+    display: inline-block;
+    padding: 5px;
+}
+
+.entry-nav nav div li a{
     color: #000000;
-}
-.left-entry-nav {
-    position: absolute;
-    right: 0;
+    text-decoration: none;
 }
 
+.page-nav {
+    margin: 0 auto;
+    width: 44%;
+    display: block;
+}
+
+.current-page {
+    background-color: #282828;
+}
+
+.entry-nav div .current-page a{
+    color: #ffffff;
+}
 
 /* REGISTER */
 .registerform {
