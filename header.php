@@ -29,6 +29,14 @@
                 <a>' . $username . '</a>
             </li>
                 ';
+                    }else {
+                        echo '
+                <form id="login" name="login" method="post" action="">
+                    <input type="text" name="username" placeholder="Benutzername">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="submit" name="login" value="Login">
+                </form>
+            </li>';
                     }
                 } else {
                     echo '

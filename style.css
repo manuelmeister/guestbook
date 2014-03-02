@@ -228,7 +228,9 @@ input[type="submit"]:hover {
 
 .tools input {
     background-size: 24px;
-    background: rgba(0, 0, 0, 0) no-repeat center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0);
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -237,7 +239,7 @@ input[type="submit"]:hover {
     padding: 0;
 }
 
-.tools input[type="submit"]:hover {
+.entry .tools input[type="submit"]:hover {
     opacity: 0.8;
     background-color: transparent;
 
