@@ -8,16 +8,15 @@
 require 'connect.php';
 require 'settings.php';
 include 'entry.php';
+include 'user.php';
+
+session_start();
 
 if (isset($_POST["logout"])) {
-    if (session_status() == PHP_SESSION_ACTIVE) {
+    if (isset($_SESSION['login'])) {
+        $_SESSION['login'] = 0;
         $_SESSION = array();
         session_destroy();
-    }
-    $_SESSION['login'] = 0;
-} else {
-    if (session_id() == "") {
-        session_start();
     }
 }
 
@@ -97,7 +96,8 @@ if (isset($_POST['delete'])) {
     $db->query("DELETE FROM guestbook WHERE id='$id'");
 }
 
-function clean(&$var){
+function clean(&$var)
+{
     return utf8_decode(trim($var));
 }
 

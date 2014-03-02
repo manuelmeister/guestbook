@@ -4,8 +4,9 @@ include 'header.php';
 ?>
     <div id="content" style="clear: both">
         <?php
-        if ($_SESSION["login"]) {
-            echo '<div id="add">
+        if (isset($_SESSION['login'])) {
+            if ($_SESSION["login"]) {
+                echo '<div id="add">
             <h2>Beitragen</h2>
             <form method="post" action="index.php" id="form">
                 <input type="text" name="title" placeholder="Titel"/>
@@ -14,14 +15,16 @@ include 'header.php';
             </form>
         </div>';
 
+            }
         }
+
         if ($error_msg != "") {
             echo '<div class="entry error">' . $error_msg . '</div>';
         }
 
         if (isset($_GET['page'])) {
             $current_page = $_GET['page'];
-        }else{
+        } else {
             $current_page = 0;
         }
 
@@ -67,12 +70,12 @@ include 'header.php';
             <nav>
                 <ul>
                     <div>
-                        <li><a href='index.php?page=0'>Erste Seite</a></li>
+                        <li><a href='index.php?page=0'><img src='img/first-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Erste Seite</a></li>
                         <li><a href='index.php?page=$prev_page'><img src='img/arrow-left-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Vorherige Seite</a></li>
                     </div>
                     <div class='left-entry-nav'>
                         <li><a href='index.php?page=$next_page'>Nächste Seite<img src='img/arrow-right-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>
-                        <li><a href='index.php?page=$last_page'>Letzte Seite</a></li>
+                        <li><a href='index.php?page=$last_page'>Letzte Seite<img src='img/last-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>
                     </div>
                 </ul>
             </nav>

@@ -30,9 +30,11 @@ class entry
     public function getHtml($entry_template)
     {
         $tools_visibility_string = 'hidden';
-        if ($_SESSION['login']) {
-            if ($this->user == $_SESSION['username'] || $_SESSION['admin']) {
-                $tools_visibility_string = '';
+        if (isset($_SESSION['login'])) {
+            if ($_SESSION['login']) {
+                if ($this->user == $_SESSION['username'] || $_SESSION['admin']) {
+                    $tools_visibility_string = '';
+                }
             }
         }
         return utf8_encode(str_replace(array(

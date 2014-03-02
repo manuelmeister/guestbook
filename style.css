@@ -129,6 +129,14 @@ td strong {
     color: #000000;
 }
 
+.userimage {
+    float: right;
+}
+
+.user{
+    background-color: #898989;
+}
+
 .right {
     float: right;
 }
@@ -249,7 +257,11 @@ input[type="submit"]:hover {
 
 .entry-nav nav ul {
     position: relative;
-    background-color: #747474;
+    background: none;
+}
+
+.entry-nav nav ul li a:hover {
+    background-color: #e1e1e1;
 }
 
 .entry-nav nav ul li a{
