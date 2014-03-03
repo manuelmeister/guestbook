@@ -101,6 +101,14 @@ function clean(&$var)
     return utf8_decode(trim($var));
 }
 
+function login_field(){
+    return '<form id="login" name="login" method="post" action="">
+                <input class="login_field" type="text" name="username" placeholder="Benutzername">
+                <input class="login_field" type="password" name="password" placeholder="Password">
+                <input type="submit" name="login" value="Login">
+            </form>';
+}
+
 if (isset($_POST['register'])) {
     $password = md5($_POST['password']);
     $username = clean($_POST['username']);

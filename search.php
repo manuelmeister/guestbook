@@ -11,7 +11,7 @@ include 'header.php';
 ?>
     <div class="entry">
         <form action="search.php" method="post" class="searchform">
-            <input type="text" name="searchvalue" placeholder="Suchbegrif"/>
+            <input type="search" name="searchvalue" placeholder="Suchbegrif"/>
             <input type="submit" name="search" value="Suchen"/>
         </form>
     </div>

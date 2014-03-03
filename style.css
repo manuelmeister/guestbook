@@ -110,6 +110,7 @@ td strong {
 
 #logo {
     text-decoration: none;
+    display: inline-block;
 }
 
 #add {
@@ -168,11 +169,10 @@ td strong {
     opacity: 1;
 }
 
-input[type="text"], input[type="password"], input[type="submit"] {
+input[type="text"], input[type="password"], input[type="submit"], input[type="search"] {
     height: 24px;
     margin: 6px 2px;
     padding: 3px;
-    border: none;
 }
 
 input[type="submit"] {
@@ -207,6 +207,24 @@ input[type="submit"]:hover {
     height: 32px;
 }
 
+header {
+    position: relative;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+#login {
+    position: absolute;
+    margin: auto 0;
+    height: 40px;
+    display: inline-block;
+    top:0;
+    bottom: 0;
+    right: 0;
+}
+
 #login input[type="submit"] {
     width: 75px;
     height: 30px;
@@ -214,6 +232,15 @@ input[type="submit"]:hover {
     margin-right: 5px;
     background: #505050;
     font-size: 12px;
+}
+
+.login_field {
+    margin: 6px 2px;
+    margin-right: 5px;
+    font-size: 12px;
+    border: 1px solid #949494;
+    background-color: #F7F7F7;
+    border-radius: 2px;
 }
 
 .tools {
@@ -309,6 +336,37 @@ input[type="submit"]:hover {
 }
 
 /* SEARCH */
+.search {
+    margin-right: 4px;
+}
+
+.search input[type="search"]{
+    box-sizing: content-box;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    width: 128px;
+    border: none;
+    border-radius: 2px;
+    margin: 5px 2px;
+}
+
+.search input[type="search"]:focus{
+    width: 172px;
+}
+
+.search input[type="submit"]{
+    background-color: #535353;
+    width: 64px;
+    margin: 5px 2px;
+}
+
+.search input[type="submit"]:hover{
+    background-color: #888888;
+}
+
 .searchform {
     margin: 10px 0;
 }
