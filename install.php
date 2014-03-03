@@ -6,10 +6,7 @@
  * Time: 22:18
  */
 
-require 'connect.php';
-
-session_start();
-$_SESSION['login'] = 0;
+require 'functions.php';
 
 include 'header.php';
 

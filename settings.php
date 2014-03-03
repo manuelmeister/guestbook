@@ -7,4 +7,4 @@
  */
 
 // How many entries should be shown on a page
-$ENTRY_SHOWN_PER_PAGE = 5;
+define('ENTRY_SHOWN_PER_PAGE', 5);

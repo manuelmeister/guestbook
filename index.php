@@ -28,18 +28,19 @@ include 'header.php';
             $current_page = 0;
         }
 
-        $first_entry = $current_page * $ENTRY_SHOWN_PER_PAGE;
+        $first_entry = $current_page * ENTRY_SHOWN_PER_PAGE;
 
         $num_rs_db = $db->query("SELECT id FROM guestbook");
         $number_rows = $num_rs_db->num_rows;
-        $last_page = ($number_rows - ($number_rows % $ENTRY_SHOWN_PER_PAGE)) / $ENTRY_SHOWN_PER_PAGE;
+        $last_page = ($number_rows - ($number_rows % $ENTRY_SHOWN_PER_PAGE)) / ENTRY_SHOWN_PER_PAGE;
+        $entry_per_page = ENTRY_SHOWN_PER_PAGE;
 
         if($current_page > $last_page){
             header("HTTP/1.0 404 Not Found");
             echo '<p class="entry error">Fehler 404: Seite nicht Gefunden!</p>';
         }else{
             $stmt = $db->prepare("SELECT * FROM guestbook ORDER BY datepublished DESC LIMIT ?,? ");
-            $stmt->bind_param('ss', $first_entry, $ENTRY_SHOWN_PER_PAGE);
+            $stmt->bind_param('ss', $first_entry, $entry_per_page);
             $stmt->execute();
             $rs = $stmt->get_result();
 
