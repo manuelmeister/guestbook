@@ -21,4 +21,5 @@ function check_username() {
 
 $(document).ready(function () {
     $('#username_inputfield').on('blur', check_username());
+    $('#errordiv').delay(1000).fadeOut('slow');
 })

@@ -2,7 +2,7 @@
 $tools_visibility_string = 'hidden';
 if (isset($_SESSION['login'])) {
     if ($_SESSION['login']) {
-        if ($this->user == $_SESSION['username'] || $_SESSION['admin']) {
+        if ($entry['username'] == $_SESSION['username'] || $_SESSION['admin']) {
             $tools_visibility_string = '';
         }
     }

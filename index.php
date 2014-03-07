@@ -1,5 +1,4 @@
 <?php
-include 'loader.php';
 include 'functions.php';
 include 'header.php';
 ?>
@@ -20,7 +19,7 @@ include 'header.php';
         }
 
         if ($error_msg != "") {
-            echo '<div class="entry error">' . $error_msg . '</div>';
+            echo '<div id="errordiv" class="entry error">' . $error_msg . '</div>';
         }
 
         if (isset($_GET['page'])) {

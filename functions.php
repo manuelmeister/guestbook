@@ -7,8 +7,8 @@
  */
 require 'connect.php';
 require 'settings.php';
-include 'entry.php';
 include 'user.php';
+include 'loader.php';
 
 session_start();
 
@@ -20,55 +20,23 @@ if (isset($_POST["logout"])) {
     }
 }
 
+$model = new Model();
+
 $title = "";
 $entry = "";
 $antwort = "";
 $error_msg = "";
+
 /**
  * $db mysqli
  */
 if (isset($_POST['login'])) {
-    $username = $db->real_escape_string($_POST['username']);
-
-    $password = md5($_POST['password']);
-
-    $result = $db->query("SELECT username, password, admin FROM user WHERE username='$username' LIMIT 1");
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_object();
-
-        if ($user->password == $password) {
-            $_SESSION['login'] = 1;
-            $_SESSION['username'] = $username;
-            $_SESSION['admin'] = $user->admin;
-        } else {
-            $error_msg = 'Falsches Passwort.';
-            $_SESSION['login'] = false;
-        }
-    } else {
-        $error_msg = 'Falscher Benutzername oder falsches Passwort.';
-        $_SESSION['login'] = false;
-    }
+    $error_msg = $model->login($username,$password);
 }
 
 
 if (isset($_POST['submit'])) {
-    $_SESSION['login'] = 1;
-    $username = $_SESSION['username'];
-    $title = utf8_decode(trim($_POST['title']));
-    if (strlen($title) == 0 || $title == 'Titel') {
-        $error_msg .= 'Er wurde keinen Titel eingegeben.';
-    }
-    $entry = utf8_decode(trim($_POST['entry']));
-    if (strlen($entry) == 0 || $entry == 'Text') {
-        $error_msg .= 'Er wurde keinen Text eingegeben.';
-    } else {
-        $error_msg = "";
-
-        $sql = $db->query("INSERT INTO guestbook (username, title, content) VALUES ( '$username', '$title', '$entry');");
-        $name = "";
-        $title = "";
-        $entry = "";
-    }
+    $error_msg = ($model->addPost($_SESSION['username'],$_POST['title'],$_POST['entry']))? 'Beitrag eingefügt.' : 'Es wurde keinen Text eingegeben.';
 }
 
 if (isset($_POST['edit'])) {
