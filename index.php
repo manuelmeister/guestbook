@@ -19,7 +19,7 @@ include 'header.php';
         }
 
         if ($error_msg != "") {
-            echo '<div id="errordiv" class="entry error">' . $error_msg . '</div>';
+            echo '<div id="errordiv" class="entry">' . $error_msg . '</div>';
         }
 
         if (isset($_GET['page'])) {
@@ -61,7 +61,6 @@ include 'header.php';
 
             $entries = $model->getPosts($first_entry,$ENTRY_SHOWN_PER_PAGE);
 
-            $entry_template = file_get_contents('templates/entry.html');
             ob_start();
             foreach ($entries as $entry) {
                 include 'templates/basic-post.php';

@@ -1,7 +1,9 @@
 <?php
 
-include 'connect.php';
+include 'model/model.php';
+$model = new Model();
 
 $desired_username = $_POST['username'];
-$stmt = $db->query("SELECT * FROM user WHERE username = '$desired_username' LIMIT 1");
-echo $stmt->num_rows;
+$sql = $model->getDB()->prepare("SELECT * FROM user WHERE username = '$desired_username' LIMIT 1");
+$sql->execute();
+echo $sql->rowCount();

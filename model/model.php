@@ -1,18 +1,46 @@
 <?php
 class Model {
 
+    /**
+     * @var null|PDO
+     */
     private $db = null;
 
+    /**
+     * Construct
+     */
     public function __construct(){
         if($this->db == null){
             $this->db = new PDO("mysql:host=localhost; dbname=dracheburg", "dracheburg_user", "pfadi4ever");
         }
     }
 
+    public function getDB(){
+        return $this->db;
+    }
+
+    /**
+     * @param $first_post
+     * @param $number_of_posts
+     * @return array
+     */
     public function getPosts($first_post,$number_of_posts){
         $sql = $this->db->prepare("SELECT * FROM guestbook ORDER BY datepublished DESC LIMIT :first_post,:number_of_posts ");
         $sql->bindParam('first_post',$first_post,PDO::PARAM_INT);
         $sql->bindParam('number_of_posts',$number_of_posts,PDO::PARAM_INT);
+        $sql->execute();
+
+        $entries = array();
+
+        while ($post = $sql->fetch()) {
+            array_push($entries, $post);
+        }
+
+        return $entries;
+    }
+
+    public function getPostsByUser($username){
+        $sql = $this->db->prepare("SELECT * FROM guestbook WHERE username='$username' ORDER BY datepublished DESC");
         $sql->execute();
 
         $entries = array();
@@ -33,6 +61,12 @@ class Model {
         return $sql->fetch(PDO::FETCH_NUM)[0];
     }
 
+    /**
+     * @param $username
+     * @param $title
+     * @param $content
+     * @return bool
+     */
     public function addPost($username,$title,$content){
         $title = utf8_decode(trim($title));
         if (strlen($title) == 0) {
@@ -46,6 +80,18 @@ class Model {
             $sql->execute();
             return true;
         }
+    }
+
+    /**
+     * @param $username
+     * @internal param $first_post
+     * @internal param $number_of_posts
+     * @return array
+     */
+    public function getUserProfile($username){
+        $sql = $this->db->prepare("SELECT * FROM user WHERE username='$username' LIMIT 1 ");
+        $sql->execute();
+        return $sql->fetch();
     }
 
     /**

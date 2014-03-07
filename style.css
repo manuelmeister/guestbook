@@ -328,6 +328,7 @@ header {
 
 .registerinfo {
     display: inline-block;
+    margin: 10px;
 }
 
 .field__label {

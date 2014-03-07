@@ -31,7 +31,7 @@ $error_msg = "";
  * $db mysqli
  */
 if (isset($_POST['login'])) {
-    $error_msg = $model->login($username,$password);
+    $error_msg = $model->login($_POST['username'],$_POST['password']);
 }
 
 
@@ -51,7 +51,6 @@ if (isset($_POST['edit'])) {
 }
 
 if (isset($_POST['save'])) {
-    $_SESSION['login'] = 1;
     $selected_id = $_POST['id'];
     $selected_title = utf8_decode($_POST['title']);
     $selected_content = utf8_decode($_POST['content']);
