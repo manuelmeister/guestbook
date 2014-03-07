@@ -1,4 +1,5 @@
 <?php
+include 'loader.php';
 include 'functions.php';
 include 'header.php';
 ?>
@@ -28,10 +29,11 @@ include 'header.php';
             $current_page = 0;
         }
 
+        $model = new Model();
+
         $first_entry = $current_page * $ENTRY_SHOWN_PER_PAGE;
 
-        $num_rs_db = $db->query("SELECT id FROM guestbook");
-        $number_rows = $num_rs_db->num_rows;
+        $number_rows = $model->getNumbersOfPosts();
         $last_page = ($number_rows - ($number_rows % $ENTRY_SHOWN_PER_PAGE)) / $ENTRY_SHOWN_PER_PAGE;
 
         if($current_page > $last_page){
@@ -58,17 +60,16 @@ include 'header.php';
                 $next_page = $current_page + 1;
             }
 
-            $entries = Array();
-
-            while ($r = $rs->fetch_object()) {
-                ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
-                array_push($entries, ${'entry_' . $r->id});
-            }
+            $entries = $model->getPosts($first_entry,$ENTRY_SHOWN_PER_PAGE);
 
             $entry_template = file_get_contents('templates/entry.html');
-            foreach ($entries as $e) {
-                echo $e->getHtml($entry_template);
+            ob_start();
+            foreach ($entries as $entry) {
+                include 'templates/basic-post.php';
             }
+            $view = ob_get_clean();
+
+            echo utf8_encode($view);
 
 
             function page_request($current_page, $i)
@@ -76,7 +77,7 @@ include 'header.php';
                 return ($i == $current_page ? "<li class='current-page'><a href='index.php?page=$i'>$i</a></li>" : "<li><a href='index.php?page=$i'>$i</a></li>");
             }
 
-            function getPages($current_page, $last_page)
+            function getPagesNav($current_page, $last_page)
             {
                 $page_items_shown = 5;
                 $output = '<div class="page-nav">';
@@ -124,7 +125,7 @@ include 'header.php';
                         <li><a href='index.php?page=0'><img src='img/first-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Erste Seite</a></li>
                         <li><a href='index.php?page=$prev_page'><img src='img/arrow-left-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Vorherige Seite</a></li>
                     </div>";
-            echo getPages($current_page, $last_page);
+            echo getPagesNav($current_page, $last_page);
             echo "      <div class='left-entry-nav'>
                         <li><a href='index.php?page=$next_page'>Nächste Seite<img src='img/arrow-right-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>
                         <li><a href='index.php?page=$last_page'>Letzte Seite<img src='img/last-512.png' width='20px' height='20px' style='float: right;margin-left: 5px'></a></li>

@@ -5,7 +5,7 @@ class Model {
 
     public function __construct(){
         if($this->db == null){
-            $this->db = new PDO("mysql:host=localhost, dbname=guestbook;", "dracheburg_user","pass");
+            $this->db = new PDO("mysql:host=localhost; dbname=dracheburg", "dracheburg_user", "pfadi4ever");
         }
     }
 
@@ -22,6 +22,15 @@ class Model {
         }
 
         return $entries;
+    }
+
+    /**
+     * @return INT
+     */
+    public function getNumbersOfPosts(){
+        $sql = $this->db->prepare("SELECT COUNT(*) FROM guestbook");
+        $sql->execute();
+        return $sql->fetch(PDO::FETCH_NUM)[0];
     }
 
 }
