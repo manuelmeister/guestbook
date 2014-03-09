@@ -18,20 +18,20 @@
             if (isset($_SESSION['login'])) {
                 if ($_SESSION["login"]) {
                     echo '
-                <form id="login" name="login" method="post" action="">
-                <a>' . $username . '</a>
+                <form id="login" name="login" method="post" action="?controller=logout">
+                <a>' . $_SESSION['username'] . '</a>
                     <input type="submit" name="logout" value="Logout">
                 </form>
                 ';
                 } else {
-                    echo '<form id="login" name="login" method="post" action="">
+                    echo '<form id="login" name="login" method="post" action="?controller=login">
                 <input class="login_field" type="text" name="username" placeholder="Benutzername">
                 <input class="login_field" type="password" name="password" placeholder="Password">
                 <input type="submit" name="login" value="Login">
             </form>';
                 }
             } else {
-                echo '<form id="login" name="login" method="post" action="">
+                echo '<form id="login" name="login" method="post" action="?controller=login">
                 <input class="login_field" type="text" name="username" placeholder="Benutzername">
                 <input class="login_field" type="password" name="password" placeholder="Password">
                 <input type="submit" name="login" value="Login">

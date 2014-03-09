@@ -5,12 +5,16 @@
  * Date: 28.02.14
  * Time: 13:05
  */
-include 'functions.php';
+include 'loader.php';
+$controller = new Controller();
+if (isset($_GET['controller'])) {
+    $controller->switch_action($_GET['controller']);
+}
 include 'header.php';
 if (isset($_GET['id'])) {
     echo '<div id="content" style="clear: both">';
 
-    $entry = $repository->getPostByID($_GET['id']);
+    $entry = $controller->repository->getPostByID($_GET['id']);
     ob_start();
     include 'templates/single-post.php';
     $view = ob_get_clean();

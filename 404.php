@@ -5,7 +5,7 @@
  * Date: 03.03.14
  * Time: 15:11
  */
-include 'functions.php';
+include 'loader.php';
 include 'header.php';
 header("HTTP/1.0 404 Not Found");
 echo '<div id="content" style="clear: both">

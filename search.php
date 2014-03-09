@@ -6,7 +6,11 @@
  * Time: 10:31
  */
 
-include 'functions.php';
+include 'loader.php';
+$controller = new Controller();
+if (isset($_GET['controller'])) {
+    $controller->switch_action($_GET['controller']);
+}
 include 'header.php';
 ?>
     <div class="entry">
@@ -18,7 +22,7 @@ include 'header.php';
 <?php
 if (isset($_GET['search'])) {
     $keyword = $_GET['val'];
-    $found_entries = $repository->getPostsByKeyword($keyword);
+    $found_entries = $controller->repository->getPostsByKeyword($keyword);
     $numbers_of_entries = count($found_entries);
     if ($numbers_of_entries) {
         echo "<div class='entry'>$numbers_of_entries Einträge für: $keyword</div>";

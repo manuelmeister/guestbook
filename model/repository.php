@@ -48,9 +48,13 @@ class Repository
         return $entries;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getPostByID($id)
     {
-        $sql = $this->db->prepare("SELECT * FROM guestbook WHERE id='$id' LIMIT 1");
+        $sql = $this->db->prepare("SELECT datepublished, username, title, content FROM guestbook WHERE id='$id'");
         $sql->execute();
         return $sql->fetch();
     }
@@ -106,33 +110,27 @@ class Repository
     }
 
     /**
-     * @param $id
-     * @return string
-     */
-    public function editPost($id)
-    {
-        $sql = $this->db->prepare("SELECT datepublished, username, title, content FROM guestbook WHERE id='$id'");
-        $sql->execute();
-        return $sql->fetch(PDO::FETCH_OBJ);
-    }
-
-    /**
      * @param $selected_id
      * @param $selected_title
      * @param $selected_content
+     * @return bool
      */
     public function updatePost($selected_id, $selected_title, $selected_content)
     {
         $sql = $this->db->prepare("UPDATE guestbook SET title = '$selected_title', content = '$selected_content' WHERE id='$selected_id'");
+        $sql->execute();
+        return true;
     }
 
     /**
      * @param $id
+     * @return bool
      */
     public function deletePost($id)
     {
         $sql = $this->db->prepare("DELETE FROM guestbook WHERE id='$id'");
         $sql->execute();
+        return true;
     }
 
     /**
@@ -184,7 +182,7 @@ class Repository
      * @param $password
      * @param $firstname
      * @param $familyname
-     * @return int|string
+     * @return string
      */
     public function register($username, $password, $firstname, $familyname)
     {
@@ -193,6 +191,7 @@ class Repository
         } else {
             $sql = $this->db->prepare("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
             $sql->execute();
+            return 'Benutzername wurde erfolgreich hinzugefügt.';
         }
     }
 

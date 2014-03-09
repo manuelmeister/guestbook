@@ -5,14 +5,18 @@
  * Date: 03.02.14
  * Time: 08:02
  */
-include 'functions.php';
+include 'loader.php';
+$controller = new Controller();
+if (isset($_GET['controller'])) {
+    $controller->switch_action($_GET['controller']);
+}
 include 'header.php';
 ?>
     <div id="content" style="clear: both">
         <div class="entry registercontainer">
             <h2>Registrieren</h2>
 
-            <form name="registerform" method="post" action="register.php" class="register">
+            <form name="registerform" method="post" action="register.php?controller=register" class="register">
                 <div class="field">
                     <label class="field__label" for="username">Username</label>
                     <input class="field__input" type="text" name="username" placeholder="Username"
@@ -34,7 +38,7 @@ include 'header.php';
                 </div>
                 <input type="submit" name="register" value="Registrieren">
 
-                <p><?php echo $error_msg; ?></p>
+                <p><?php echo $controller->error_msg; ?></p>
             </form>
         </div>
     </div>

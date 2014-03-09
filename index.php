@@ -1,5 +1,9 @@
 <?php
-include 'functions.php';
+include 'loader.php';
+$controller = new Controller();
+if (isset($_GET['controller'])) {
+    $controller->switch_action($_GET['controller']);
+}
 include 'header.php';
 ?>
     <div id="content" style="clear: both">
@@ -8,19 +12,20 @@ include 'header.php';
             if ($_SESSION["login"]) {
                 echo '<div id="add">
             <h2>Beitragen</h2>
-            <form method="post" action="index.php" id="form">
+            <form method="post" action="index.php?controller=add" id="form">
                 <input type="text" name="title" placeholder="Titel"/>
                 <input type="text" name="entry" placeholder="Text"/>
-                <input type="submit" name="submit" value="Senden"/>
+                <input type="submit" name="add" value="Senden"/>
             </form>
         </div>';
 
             }
         }
 
-        if ($error_msg != "") {
-            echo '<div id="errordiv" class="entry">' . $error_msg . '</div>';
+        if (!empty($controller->error_msg)) {
+            echo '<div id="errordiv" class="entry">' . $controller->error_msg . '</div>';
         }
+
 
         if (isset($_GET['page'])) {
             $current_page = $_GET['page'];
@@ -30,7 +35,7 @@ include 'header.php';
 
         $first_entry = $current_page * ENTRY_SHOWN_PER_PAGE;
 
-        $number_rows = $repository->getNumbersOfPosts();
+        $number_rows = $controller->repository->getNumbersOfPosts();
         $last_page = ($number_rows - ($number_rows % ENTRY_SHOWN_PER_PAGE)) / ENTRY_SHOWN_PER_PAGE;
 
         if ($current_page > $last_page) {
@@ -50,7 +55,7 @@ include 'header.php';
                 $next_page = $current_page + 1;
             }
 
-            $entries = $repository->getPosts(ENTRY_SHOWN_PER_PAGE, $first_entry);
+            $entries = $controller->repository->getPosts(ENTRY_SHOWN_PER_PAGE, $first_entry);
 
             ob_start();
             foreach ($entries as $entry) {

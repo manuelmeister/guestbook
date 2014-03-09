@@ -1,22 +1,14 @@
 <?php
-$tools_visibility_string = 'hidden';
-if (isset($_SESSION['login'])) {
-    if ($_SESSION['login']) {
-        if ($entry['username'] == $_SESSION['username'] || $_SESSION['admin']) {
-            $tools_visibility_string = '';
-        }
-    }
-}
 $output = "<div class='entry'>";
 if (isset($_SESSION['login'])) {
     if ($_SESSION['login']) {
         if ($entry['username'] == $_SESSION['username'] || $_SESSION['admin']) {
             $output .= "<div class='tools'>
-                    <form action='edit.php' method='post'>
+                    <form action='edit.php?controller=edit' method='post'>
                         <input name='id' value='" . $entry['id'] . "' type='hidden'>
                         <input type='submit' name='edit' value='' class='edit'>
                     </form>
-                    <form action='index.php' method='post'>
+                    <form action='index.php?controller=delete' method='post'>
                         <input name='id' value='" . $entry['id'] . "' type='hidden'>
                         <input type='submit' name='delete' value='' class='delete'>
                     </form>
