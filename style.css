@@ -171,7 +171,7 @@ td strong {
 
 input[type="text"], input[type="password"], input[type="submit"], input[type="search"] {
     height: 24px;
-    margin: 6px 2px;
+    margin: 6px 0;
     padding: 3px;
 }
 
@@ -385,13 +385,18 @@ header {
     background-color: #888888;
 }
 
-.searchform {
-    margin: 10px 0;
+.searchform h3{
+    margin-bottom: 10px;
+}
+
+.searchform label{
+    display: inline-block;
+    min-width: 100px;
 }
 
 .searchform > input[type="search"] {
     display: inline-block;
-    width: 75%;
+    width: 100%;
     border: none;
     border-radius: 2px;
     height: 32px;

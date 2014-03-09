@@ -210,4 +210,18 @@ class Repository
         return $found_entries;
     }
 
+    /**
+     * @param $keyword
+     * @return array
+     */
+    public function getUsersByKeyword($keyword)
+    {
+        $sql = $this->db->prepare("SELECT username,datejoined,firstname,familyname FROM user WHERE username LIKE '$keyword'");
+        $sql->execute();
+        $found_users = array();
+        while ($found_user = $sql->fetch()) {
+            array_push($found_users, $found_user);
+        }
+        return $found_users;
+    }
 }
