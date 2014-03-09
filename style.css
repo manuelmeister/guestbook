@@ -169,10 +169,11 @@ td strong {
     opacity: 1;
 }
 
-input[type="text"], input[type="password"], input[type="submit"], input[type="search"] {
+input[type="text"], input[type="password"], input[type="submit"], input[type="search"], input[type="email"], input[type="file"] {
     height: 24px;
     margin: 6px 0;
     padding: 3px;
+    width: 200px;
 }
 
 input[type="submit"] {
@@ -223,6 +224,10 @@ header {
     top: 0;
     bottom: 0;
     right: 0;
+}
+
+#login input[type="text"],#login input[type="password"]{
+    width: 100px;
 }
 
 #login input[type="submit"] {

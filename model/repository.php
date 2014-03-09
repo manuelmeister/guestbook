@@ -184,17 +184,17 @@ class Repository
      * @param $familyname
      * @return string
      */
-    public function register($username, $password, $firstname, $familyname)
+    public function register($username, $password, $email, $firstname, $familyname)
     {
         if (strlen($username) == 0) {
             return 'Er wurde keinen Username eingegeben.';
-        }else{
+        } else {
             $sql = $this->db->prepare("SELECT * FROM user WHERE username = '$username' LIMIT 1");
             $sql->execute();
-            if($sql->rowCount()){
+            if ($sql->rowCount()) {
                 return 'Benutzername ist nicht verfügbar.';
-            }else{
-                $sql = $this->db->prepare("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
+            } else {
+                $sql = $this->db->prepare("INSERT INTO user (username, password, email, firstname, familyname) VALUES ( '$username', '$password', '$email', '$firstname', '$familyname');");
                 $sql->execute();
                 return 'Benutzername wurde erfolgreich hinzugefügt.';
             }

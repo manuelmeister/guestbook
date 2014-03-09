@@ -66,12 +66,16 @@ include 'header.php';
                     <input class="field__input" type="password" name="password" placeholder="Password" required/>
                 </div>
                 <div class="field">
+                    <label class="field__label" for="email">E-mail</label>
+                    <input class="field__input" type="email" name="email" placeholder="E-mail" required/>
+                </div>
+                <div class="field">
                     <label class="field__label" for="firstname">Vorname</label>
-                    <input class="field__input" type="text" name="firstname" placeholder="Vorname" value="<?php if(isset($_POST['firstname'])){echo $_POST['firstname'];}?>" required/>
+                    <input class="field__input" type="text" name="firstname" placeholder="Vorname" value="<?php if(isset($_POST['firstname'])){echo $_POST['firstname'];}?>" />
                 </div>
                 <div class="field">
                     <label class="field__label" for="familyname">Nachname</label>
-                    <input class="field__input" type="text" name="familyname" placeholder="Nachname" value="<?php if(isset($_POST['familyname'])){echo $_POST['familyname'];}?>" required/>
+                    <input class="field__input" type="text" name="familyname" placeholder="Nachname" value="<?php if(isset($_POST['familyname'])){echo $_POST['familyname'];}?>" />
                 </div>
                 <input type="submit" name="register" value="Registrieren" id="register-submit">
 

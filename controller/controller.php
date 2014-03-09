@@ -89,13 +89,13 @@ class Controller
                 if (!$resp->is_valid) {
                     $this->error_msg = "The reCAPTCHA wasn't entered correctly. Go back and try it again. (reCAPTCHA said: " . $resp->error . ")";
                 } else {
-                    $this->error_msg = $this->repository->register(strtolower($this->clean_decode($_POST['username'])), md5($_POST['password']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
+                    $this->error_msg = $this->repository->register(strtolower($this->clean_decode($_POST['username'])), password_hash($_POST['password'], PASSWORD_DEFAULT), $this->clean_decode($_POST['email']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
                     $_POST = array();
                 }
                 break;
 
             case 'login':
-                $this->error_msg = ($this->repository->login($_POST['username'], $_POST['password'])) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
+                $this->error_msg = ($this->repository->login($_POST['username'], password_hash($_POST['password'], PASSWORD_DEFAULT))) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
                 break;
 
             case 'logout':
