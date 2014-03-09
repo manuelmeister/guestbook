@@ -348,6 +348,14 @@ header {
     background-color: #e4a094;
 }
 
+#register-submit {
+    width: 227px;
+}
+
+#register-submit:disabled {
+    background-color: #9c9c9c;
+}
+
 .field__label {
     width: 100px;
     display: inline-block;
@@ -385,11 +393,11 @@ header {
     background-color: #888888;
 }
 
-.searchform h3{
+.searchform h3 {
     margin-bottom: 10px;
 }
 
-.searchform label{
+.searchform label {
     display: inline-block;
     min-width: 100px;
 }
@@ -404,4 +412,23 @@ header {
 
 .marked {
     background-color: #ffe494;
+}
+
+/* ===== RECAPTCHA ===== */
+#recaptcha_widget {
+    background-color: #C7C7C7;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 2px;
+    float: right;
+}
+
+#recaptcha_image {
+    padding: 5px;
+    background-color: #FFF;
+    border-radius: 2px;
+}
+
+#recaptcha_response_field{
+    width: 155px;
 }

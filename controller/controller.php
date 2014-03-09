@@ -29,6 +29,19 @@ class Controller
      */
     public $error_msg;
 
+    // <<< reCaptcha === //
+    /**
+     * @var string
+     */
+    public $publickey = "6LdJyu8SAAAAAH15c0OoTyQvAp8yzXKWdk28oOX3";
+
+    /**
+     * @var string
+     */
+    private $privatekey = "6LdJyu8SAAAAADYJci-GUNnPwhhp0B_y4BITKOi1";
+
+    // === reCaptcha >>> //
+
     /**
      * @var object
      */
@@ -50,24 +63,41 @@ class Controller
     public function switch_action($action)
     {
         switch ($action) {
+
             case 'add':
                 $this->error_msg = ($this->repository->addPost($_SESSION['username'], $_POST['title'], $_POST['entry'])) ? 'Beitrag eingefügt.' : 'Es wurde keinen Text eingegeben.';
                 break;
+
             case 'edit':
                 $this->selected_entry = $this->repository->editPost($_POST['id']);
                 break;
+
             case 'save':
                 $this->error_msg = $this->repository->updatePost($_POST['id'], utf8_decode($_POST['title']), utf8_decode($_POST['content']));
                 break;
+
             case 'delete':
                 $this->error_msg = $this->repository->deletePost($_POST['id']);
                 break;
+
             case 'register':
-                $this->error_msg = $this->repository->register($this->clean_decode($_POST['username']), md5($_POST['password']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
+                $resp = recaptcha_check_answer ($this->privatekey,
+                    $_SERVER["REMOTE_ADDR"],
+                    $_POST["recaptcha_challenge_field"],
+                    $_POST["recaptcha_response_field"]);
+
+                if (!$resp->is_valid) {
+                    $this->error_msg = "The reCAPTCHA wasn't entered correctly. Go back and try it again. (reCAPTCHA said: " . $resp->error . ")";
+                } else {
+                    $this->error_msg = $this->repository->register(strtolower($this->clean_decode($_POST['username'])), md5($_POST['password']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
+                    $_POST = array();
+                }
                 break;
+
             case 'login':
                 $this->error_msg = ($this->repository->login($_POST['username'], $_POST['password'])) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
                 break;
+
             case 'logout':
                 if (isset($_SESSION['login'])) {
                     $_SESSION['login'] = 0;
@@ -75,6 +105,7 @@ class Controller
                     session_destroy();
                 }
                 break;
+
             default:
                 $this->error_msg = "";
                 break;
@@ -87,7 +118,7 @@ class Controller
      */
     public function clean_decode(&$var)
     {
-        return utf8_decode(trim($var));
+        return htmlspecialchars_decode(utf8_decode(trim($var)));
     }
 
     /**

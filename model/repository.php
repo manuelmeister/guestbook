@@ -187,11 +187,17 @@ class Repository
     public function register($username, $password, $firstname, $familyname)
     {
         if (strlen($username) == 0) {
-            return 'Er wurde keinen Titel eingegeben.';
-        } else {
-            $sql = $this->db->prepare("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
+            return 'Er wurde keinen Username eingegeben.';
+        }else{
+            $sql = $this->db->prepare("SELECT * FROM user WHERE username = '$username' LIMIT 1");
             $sql->execute();
-            return 'Benutzername wurde erfolgreich hinzugefügt.';
+            if($sql->rowCount()){
+                return 'Benutzername ist nicht verfügbar.';
+            }else{
+                $sql = $this->db->prepare("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
+                $sql->execute();
+                return 'Benutzername wurde erfolgreich hinzugefügt.';
+            }
         }
     }
 

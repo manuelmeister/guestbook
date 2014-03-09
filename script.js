@@ -11,10 +11,12 @@ function check_username() {
                     $('#resister-username-check').text("Diesen Benutzernamen gibt es bereits!");
                     $('#username_inputfield').removeClass("available");
                     $('#username_inputfield').addClass("notavailable");
+                    $('#register-submit').attr('disabled',true);
                 } else {
                     $('#resister-username-check').text("Benutzernamen verfügbar");
                     $('#username_inputfield').removeClass("notavailable");
                     $('#username_inputfield').addClass("available");
+                    $('#register-submit').attr('disabled',false);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
