@@ -5,9 +5,8 @@
  * Date: 19.02.14
  * Time: 17:22
  */
-require 'connect.php';
+
 require 'settings.php';
-include 'user.php';
 include 'loader.php';
 
 session_start();
@@ -20,78 +19,44 @@ if (isset($_POST["logout"])) {
     }
 }
 
-$model = new Model();
+$db = new PDO("mysql:host=localhost; dbname=dracheburg", "dracheburg_user", "pfadi4ever");
 
-$title = "";
-$entry = "";
-$antwort = "";
+$repository = new Repository($db);
+
 $error_msg = "";
 
-/**
- * $db mysqli
- */
 if (isset($_POST['login'])) {
-    $error_msg = $model->login($_POST['username'],$_POST['password']);
+    $error_msg = ($repository->login($_POST['username'], $_POST['password'])) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
 }
 
-
 if (isset($_POST['submit'])) {
-    $error_msg = ($model->addPost($_SESSION['username'],$_POST['title'],$_POST['entry']))? 'Beitrag eingefügt.' : 'Es wurde keinen Text eingegeben.';
+    $error_msg = ($repository->addPost($_SESSION['username'], $_POST['title'], $_POST['entry'])) ? 'Beitrag eingefügt.' : 'Es wurde keinen Text eingegeben.';
 }
 
 if (isset($_POST['edit'])) {
-    $_SESSION['login'] = 1;
-    $id = $_POST['id'];
-    $db_entry = $db->query("SELECT datepublished, username, title, content FROM guestbook WHERE id='$id'");
-    $selected_entry = $db_entry->fetch_object();
-    $selected_user = utf8_encode($selected_entry->username);
-    $selected_last_edit = utf8_encode($selected_entry->datepublished);
-    $selected_title = utf8_encode($selected_entry->title);
-    $selected_content = utf8_encode($selected_entry->content);
+    $selected_entry = $repository->editPost($_POST['id']);
 }
 
 if (isset($_POST['save'])) {
-    $selected_id = $_POST['id'];
-    $selected_title = utf8_decode($_POST['title']);
-    $selected_content = utf8_decode($_POST['content']);
-    $db_entry = $db->query("UPDATE guestbook SET title = '$selected_title', content = '$selected_content' WHERE id='$selected_id'");
+    $repository->updatePost($_POST['id'], utf8_decode($_POST['title']), utf8_decode($_POST['content']));
 }
 
 if (isset($_POST['delete'])) {
-    $_SESSION['login'] = 1;
-    $id = $_POST['id'];
-    $db->query("DELETE FROM guestbook WHERE id='$id'");
+    $repository->deletePost($_POST['id']);
 }
 
-function clean(&$var)
+function clean_decode(&$var)
 {
     return utf8_decode(trim($var));
 }
 
-function login_field(){
-    return '<form id="login" name="login" method="post" action="">
-                <input class="login_field" type="text" name="username" placeholder="Benutzername">
-                <input class="login_field" type="password" name="password" placeholder="Password">
-                <input type="submit" name="login" value="Login">
-            </form>';
+function clean_encode(&$var)
+{
+    return utf8_encode($var);
 }
 
 if (isset($_POST['register'])) {
-    $password = md5($_POST['password']);
-    $username = clean($_POST['username']);
-    $firstname = clean($_POST['firstname']);
-    $familyname = clean($_POST['familyname']);
-
-    if (strlen($username) == 0) {
-        $error_msg .= 'Er wurde keinen Titel eingegeben.';
-    } else {
-        $sql = $db->query("INSERT INTO user (username, password, firstname, familyname) VALUES ( '$username', '$password', '$firstname', '$familyname');");
-        if (!mysqli_error($db)) {
-            $error_msg = 'Erfolgreich eingefügt';
-        } else {
-            $error_msg = mysqli_error($db);
-        }
-    }
+    $repository->register(clean_decode($_POST['username']), md5($_POST['password']), clean_decode($_POST['firstname']), clean_decode($_POST['familyname']));
 }
 
 if (isset($_SESSION['username'])) {

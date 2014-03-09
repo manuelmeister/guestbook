@@ -28,24 +28,15 @@ include 'header.php';
             $current_page = 0;
         }
 
-        $model = new Model();
+        $first_entry = $current_page * ENTRY_SHOWN_PER_PAGE;
 
-        $first_entry = $current_page * $ENTRY_SHOWN_PER_PAGE;
+        $number_rows = $repository->getNumbersOfPosts();
+        $last_page = ($number_rows - ($number_rows % ENTRY_SHOWN_PER_PAGE)) / ENTRY_SHOWN_PER_PAGE;
 
-        $number_rows = $model->getNumbersOfPosts();
-        $last_page = ($number_rows - ($number_rows % $ENTRY_SHOWN_PER_PAGE)) / $ENTRY_SHOWN_PER_PAGE;
-
-        if($current_page > $last_page){
+        if ($current_page > $last_page) {
             header("HTTP/1.0 404 Not Found");
             echo '<p class="entry error">Fehler 404: Seite nicht Gefunden!</p>';
-        }else{
-            $stmt = $db->prepare("SELECT * FROM guestbook ORDER BY datepublished DESC LIMIT ?,? ");
-            $stmt->bind_param('ss', $first_entry, $ENTRY_SHOWN_PER_PAGE);
-            $stmt->execute();
-            $rs = $stmt->get_result();
-
-            $displayed_rows = $rs->num_rows;
-
+        } else {
 
             if ($current_page == 0) {
                 $prev_page = 0;
@@ -59,7 +50,7 @@ include 'header.php';
                 $next_page = $current_page + 1;
             }
 
-            $entries = $model->getPosts($first_entry,$ENTRY_SHOWN_PER_PAGE);
+            $entries = $repository->getPosts(ENTRY_SHOWN_PER_PAGE, $first_entry);
 
             ob_start();
             foreach ($entries as $entry) {
@@ -81,12 +72,12 @@ include 'header.php';
                 $output = '<div class="page-nav">';
                 if ($last_page > $page_items_shown) {
                     $i = 0;
-                    $j1 = $j2 = $current_page - ($page_items_shown-1)/2;
-                    $k1 = $k2 = $current_page + ($page_items_shown-1)/2;
-                    if($j1 > 1){
+                    $j1 = $j2 = $current_page - ($page_items_shown - 1) / 2;
+                    $k1 = $k2 = $current_page + ($page_items_shown - 1) / 2;
+                    if ($j1 > 1) {
                         $output .= "<li><a href='index.php?page=0'>0</a></li>";
                         $output .= "<li><a>...</a></li>";
-                    }elseif($j1 == 1){
+                    } elseif ($j1 == 1) {
                         $output .= "<li><a href='index.php?page=0'>0</a></li>";
                     }
                     while ($i < $page_items_shown) {
@@ -102,10 +93,10 @@ include 'header.php';
                             $i++;
                         }
                     }
-                    if($k1 < $last_page-1){
+                    if ($k1 < $last_page - 1) {
                         $output .= "<li><a>...</a></li>";
                         $output .= "<li><a href='index.php?page=$last_page'>$last_page</a></li>";
-                    }elseif($k1 == $last_page-1){
+                    } elseif ($k1 == $last_page - 1) {
                         $output .= "<li><a href='index.php?page=$last_page'>$last_page</a></li>";
                     }
                 } else {

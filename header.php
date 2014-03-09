@@ -12,7 +12,8 @@
 <div id="container">
     <header>
         <a href="index.php" id="logo"><h1>Guestbook</h1></a>
-    <div class="wrapper">
+
+        <div class="wrapper">
             <?php
             if (isset($_SESSION['login'])) {
                 if ($_SESSION["login"]) {
@@ -22,22 +23,30 @@
                     <input type="submit" name="logout" value="Logout">
                 </form>
                 ';
-                }else {
-                    echo login_field();
+                } else {
+                    echo '<form id="login" name="login" method="post" action="">
+                <input class="login_field" type="text" name="username" placeholder="Benutzername">
+                <input class="login_field" type="password" name="password" placeholder="Password">
+                <input type="submit" name="login" value="Login">
+            </form>';
                 }
             } else {
-                echo login_field();
+                echo '<form id="login" name="login" method="post" action="">
+                <input class="login_field" type="text" name="username" placeholder="Benutzername">
+                <input class="login_field" type="password" name="password" placeholder="Password">
+                <input type="submit" name="login" value="Login">
+            </form>';
             }
             ?>
-    </div>
-        </header>
+        </div>
+    </header>
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="register.php">Registrieren</a></li>
             <li class="right">
-                <form action="search.php" method="post" class="search">
-                    <input type="search" name="searchvalue" placeholder="Suchbegrif"/>
+                <form action="search.php" method="get" class="search">
+                    <input type="search" name="val" placeholder="Suchbegrif"/>
                     <input type="submit" name="search" value="Suchen"/>
                 </form>
             </li>

@@ -7,10 +7,14 @@ function check_username() {
             data: {'username': username},
             success: function (username_exists) {
                 console.log(username_exists);
-                if(username_exists == 1){
+                if (username_exists == 1) {
                     $('#resister-username-check').text("Diesen Benutzernamen gibt es bereits!");
-                }else{
-                    $('#resister-username-check').text("");
+                    $('#username_inputfield').removeClass("available");
+                    $('#username_inputfield').addClass("notavailable");
+                } else {
+                    $('#resister-username-check').text("Benutzernamen verfügbar");
+                    $('#username_inputfield').removeClass("notavailable");
+                    $('#username_inputfield').addClass("available");
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

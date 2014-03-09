@@ -1,3 +1,3 @@
 <?php
 
-include 'model/model.php';
+include 'model/repository.php';

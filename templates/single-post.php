@@ -17,7 +17,7 @@ if (isset($_SESSION['login'])) {
     }
 }
 $output .= "<h3>
-                    <a href='post.php?id=" . $entry['id'] . "'>" . $entry['title'] . "</a>
+                    <a>" . $entry['title'] . "</a>
                 </h3>
                 <p class='date'>" . $entry['datepublished'] . " von <a href='user-overview.php?user=" . $entry['username'] . "'>" . $entry['username'] . "</a></p>
                 <p>" . $entry['content'] . "</p>

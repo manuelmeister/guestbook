@@ -134,7 +134,7 @@ td strong {
     float: right;
 }
 
-.user{
+.user {
     background-color: #898989;
 }
 
@@ -220,7 +220,7 @@ header {
     margin: auto 0;
     height: 40px;
     display: inline-block;
-    top:0;
+    top: 0;
     bottom: 0;
     right: 0;
 }
@@ -296,12 +296,12 @@ header {
     display: inline-block;
 }
 
-.entry-nav nav div li{
+.entry-nav nav div li {
     display: inline-block;
     padding: 5px;
 }
 
-.entry-nav nav div li a{
+.entry-nav nav div li a {
     color: #000000;
     text-decoration: none;
 }
@@ -316,8 +316,12 @@ header {
     background-color: #282828;
 }
 
-.entry-nav div .current-page a{
+.entry-nav div .current-page a {
     color: #ffffff;
+}
+
+.editform .content {
+    width: 60%;
 }
 
 /* REGISTER */
@@ -328,7 +332,20 @@ header {
 
 .registerinfo {
     display: inline-block;
-    margin: 10px;
+    margin: 8px;
+}
+
+.register .field .field__input {
+    border: none !important;
+    border-image: none !important;
+}
+
+.register .field .available {
+    background-color: #95e484;
+}
+
+.register .field .notavailable {
+    background-color: #e4a094;
 }
 
 .field__label {
@@ -341,7 +358,7 @@ header {
     margin-right: 4px;
 }
 
-.search input[type="search"]{
+.search input[type="search"] {
     box-sizing: content-box;
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
@@ -354,17 +371,17 @@ header {
     margin: 5px 2px;
 }
 
-.search input[type="search"]:focus{
+.search input[type="search"]:focus {
     width: 172px;
 }
 
-.search input[type="submit"]{
+.search input[type="submit"] {
     background-color: #535353;
     width: 64px;
     margin: 5px 2px;
 }
 
-.search input[type="submit"]:hover{
+.search input[type="submit"]:hover {
     background-color: #888888;
 }
 
@@ -372,9 +389,12 @@ header {
     margin: 10px 0;
 }
 
-.searchform > input[type="text"] {
+.searchform > input[type="search"] {
     display: inline-block;
     width: 75%;
+    border: none;
+    border-radius: 2px;
+    height: 32px;
 }
 
 .marked {

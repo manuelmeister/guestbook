@@ -12,11 +12,12 @@ include 'header.php';
         <div class="entry registercontainer">
             <h2>Registrieren</h2>
 
-            <form name="registerform" method="post" action="register.php">
+            <form name="registerform" method="post" action="register.php" class="register">
                 <div class="field">
                     <label class="field__label" for="username">Username</label>
                     <input class="field__input" type="text" name="username" placeholder="Username"
                            id="username_inputfield" onblur="check_username()" required/>
+
                     <p class="usernameinfo registerinfo" id="resister-username-check"></p>
                 </div>
                 <div class="field">

@@ -10,31 +10,28 @@ include 'functions.php';
 include 'header.php';
 ?>
     <div class="entry">
-        <form action="search.php" method="post" class="searchform">
-            <input type="search" name="searchvalue" placeholder="Suchbegrif"/>
+        <form action="search.php" method="get" class="searchform">
+            <input type="search" name="val" placeholder="Suchbegriff"/>
             <input type="submit" name="search" value="Suchen"/>
         </form>
     </div>
 <?php
-if (isset($_POST['search'])) {
-    $search_value = $_POST['searchvalue'];
-    $found_entries = Array();
-    $db_entry = $db->query("SELECT * FROM guestbook WHERE title LIKE '%$search_value%' OR content LIKE '%$search_value%' OR username LIKE '%$search_value%'");
-    while ($found_entry = $db_entry->fetch_object()) {
-        ${'entry_' . $found_entry->id} = new entry($found_entry->id, $found_entry->datepublished, $found_entry->username, $found_entry->title, $found_entry->content);
-        array_push($found_entries, ${'entry_' . $found_entry->id});
+if (isset($_GET['search'])) {
+    $keyword = $_GET['val'];
+    $found_entries = $repository->getPostsByKeyword($keyword);
+    $numbers_of_entries = count($found_entries);
+    if ($numbers_of_entries) {
+        echo "<div class='entry'>$numbers_of_entries Einträge für: $keyword</div>";
     }
     if ($found_entries) {
-        $entry_template = file_get_contents('templates/entry.html');
-        foreach ($found_entries as $e) {
-            echo str_replace(array(
-                $search_value, ucwords($search_value), ucfirst($search_value)
-            ), array(
-                "<b class='marked'>$search_value</b>", '<b class="marked">' . ucwords($search_value) . '</b>', '<b class="marked">' . ucfirst($search_value) . '</b>'
-            ), $e->getHtml($entry_template));
+        ob_start();
+        foreach ($found_entries as $entry) {
+            include 'templates/search-post.php';
         }
+        $view = ob_get_clean();
+        echo utf8_encode($view);
     } else {
-        echo "<div class='entry error'>Nichts für \"$search_value\" gefunden!</div>";
+        echo "<div class='entry error'>Nichts für \"$keyword\" gefunden!</div>";
     }
 }
 include 'footer.php';
