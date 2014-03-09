@@ -25,7 +25,7 @@ include 'header.php';
     </div>
 <?php
 if (isset($_GET['search'])) {
-    /*if(isset($_GET['search-keyword']) && !empty($_GET['search-keyword'])){
+    if(isset($_GET['search-keyword']) && !empty($_GET['search-keyword'])){
         $keyword = $_GET['search-keyword'];
         $found_entries = $controller->repository->getPostsByKeyword($keyword);
         $numbers_of_entries = count($found_entries);
@@ -42,7 +42,7 @@ if (isset($_GET['search'])) {
         } else {
             echo "<div class='entry error'>Nichts für \"$keyword\" gefunden!</div>";
         }
-    }*/
+    }
     if(isset($_GET['search-user']) && !empty($_GET['search-user'])){
         $keyword = $_GET['search-user'];
         $found_users = $controller->repository->getUsersByKeyword($keyword);
@@ -52,8 +52,8 @@ if (isset($_GET['search'])) {
         }
         if ($found_users) {
             ob_start();
-            foreach ($found_users as $entry) {
-                include 'templates/user-overview-post.php';
+            foreach ($found_users as $user) {
+                include 'templates/user.php';
             }
             $view = ob_get_clean();
             echo utf8_encode($view);

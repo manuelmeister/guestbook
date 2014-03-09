@@ -201,7 +201,7 @@ class Repository
      */
     public function getPostsByKeyword($keyword)
     {
-        $sql = $this->db->prepare("SELECT * FROM guestbook WHERE title LIKE '%$keyword%' OR content LIKE '%$keyword%' OR username LIKE '%$keyword%' ORDER BY datepublished");
+        $sql = $this->db->prepare("SELECT * FROM guestbook WHERE title LIKE '%$keyword%' OR content LIKE '%$keyword%' ORDER BY datepublished");
         $sql->execute();
         $found_entries = array();
         while ($found_post = $sql->fetch()) {
@@ -216,7 +216,7 @@ class Repository
      */
     public function getUsersByKeyword($keyword)
     {
-        $sql = $this->db->prepare("SELECT username,datejoined,firstname,familyname FROM user WHERE username LIKE '$keyword'");
+        $sql = $this->db->prepare("SELECT * FROM user WHERE username ='$keyword'");
         $sql->execute();
         $found_users = array();
         while ($found_user = $sql->fetch()) {

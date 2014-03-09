@@ -46,7 +46,7 @@
             <li><a href="register.php">Registrieren</a></li>
             <li class="right">
                 <form action="search.php" method="get" class="search">
-                    <input type="search" name="val" placeholder="Suchbegrif"/>
+                    <input type="search" name="search-keyword" placeholder="Suchbegrif"/>
                     <input type="submit" name="search" value="Suchen"/>
                 </form>
             </li>
