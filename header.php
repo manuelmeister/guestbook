@@ -3,9 +3,9 @@
 <head>
     <title>Testsite</title>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="script.js"></script>-->
+    <script src="script.js"></script>
     <meta charset="UTF-8">
 </head>
 <body>
@@ -46,7 +46,7 @@
             <li><a href="register.php">Registrieren</a></li>
             <li class="right">
                 <form action="search.php" method="get" class="search">
-                    <input type="search" name="search-keyword" placeholder="Suchbegrif"/>
+                    <input type="search" name="search-basis" placeholder="Suchbegriff"/>
                     <input type="submit" name="search" value="Suchen"/>
                 </form>
             </li>

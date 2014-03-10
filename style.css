@@ -177,11 +177,11 @@ input[type="text"], input[type="password"], input[type="submit"], input[type="se
     height: 24px;
     margin: 6px 0;
     padding: 3px;
-    width: 200px;
+    min-width: 200px;
 }
 
 input[type="submit"] {
-    width: 217px;
+    min-width: 217px;
     height: 32px;
     -webkit-appearance: none;
     background-color: #282828;
@@ -190,7 +190,7 @@ input[type="submit"] {
     border: none;
     border-radius: 2px;
     font-size: 14px;
-    padding: 0;
+    padding: 0 5px;
 }
 
 input[type="submit"]:hover {
@@ -234,12 +234,12 @@ header {
     right: 0;
 }
 
-#login input[type="text"], #login input[type="password"] {
-    width: 100px;
+#login > input[type="text"], #login > input[type="password"] {
+    min-width: 100px;
 }
 
 #login input[type="submit"] {
-    width: 75px;
+    min-width: 75px;
     height: 30px;
     margin: 6px 2px;
     margin-right: 5px;
