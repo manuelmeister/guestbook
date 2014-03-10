@@ -54,7 +54,7 @@ class Repository
      */
     public function getPostByID($id)
     {
-        $sql = $this->db->prepare("SELECT datepublished, username, title, content FROM guestbook WHERE id='$id'");
+        $sql = $this->db->prepare("SELECT id,datepublished, username, title, content FROM guestbook WHERE id='$id'");
         $sql->execute();
         return $sql->fetch();
     }
@@ -130,7 +130,7 @@ class Repository
     {
         $sql = $this->db->prepare("DELETE FROM guestbook WHERE id='$id'");
         $sql->execute();
-        return true;
+        return "Erfolgreich Post(ID$id) gelöscht ";
     }
 
     /**
@@ -153,16 +153,13 @@ class Repository
      */
     public function login($username, $password)
     {
-        $username = htmlentities($username);
-        $password = md5($password);
-
         $sql = $this->db->prepare("SELECT username, password, admin FROM user WHERE username='$username' LIMIT 1");
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
             $user = $sql->fetch(PDO::FETCH_OBJ);
 
-            if ($user->password == $password) {
+            if (password_verify($password, $user->password)) {
                 $_SESSION['login'] = 1;
                 $_SESSION['username'] = $username;
                 $_SESSION['admin'] = $user->admin;
@@ -180,6 +177,7 @@ class Repository
     /**
      * @param $username
      * @param $password
+     * @param $email
      * @param $firstname
      * @param $familyname
      * @return string
@@ -222,7 +220,7 @@ class Repository
      */
     public function getUsersByKeyword($keyword)
     {
-        $sql = $this->db->prepare("SELECT * FROM user WHERE username ='$keyword'");
+        $sql = $this->db->prepare("SELECT * FROM user WHERE username LIKE '%$keyword%' OR firstname LIKE '%$keyword%' OR familyname LIKE '%$keyword%'");
         $sql->execute();
         $found_users = array();
         while ($found_user = $sql->fetch()) {

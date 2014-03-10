@@ -69,11 +69,11 @@ class Controller
                 break;
 
             case 'edit':
-                $this->selected_entry = $this->repository->editPost($_POST['id']);
+                $this->selected_entry = $this->repository->getPostByID($_POST['id']);
                 break;
 
             case 'save':
-                $this->error_msg = $this->repository->updatePost($_POST['id'], utf8_decode($_POST['title']), utf8_decode($_POST['content']));
+                $this->error_msg = $this->repository->updatePost($this->clean_decode($_POST['id']), $this->clean_decode($_POST['title']), $this->clean_decode($_POST['content']));
                 break;
 
             case 'delete':
@@ -81,7 +81,7 @@ class Controller
                 break;
 
             case 'register':
-                $resp = recaptcha_check_answer ($this->privatekey,
+                $resp = recaptcha_check_answer($this->privatekey,
                     $_SERVER["REMOTE_ADDR"],
                     $_POST["recaptcha_challenge_field"],
                     $_POST["recaptcha_response_field"]);
@@ -89,13 +89,13 @@ class Controller
                 if (!$resp->is_valid) {
                     $this->error_msg = "The reCAPTCHA wasn't entered correctly. Go back and try it again. (reCAPTCHA said: " . $resp->error . ")";
                 } else {
-                    $this->error_msg = $this->repository->register(strtolower($this->clean_decode($_POST['username'])), password_hash($_POST['password'], PASSWORD_DEFAULT), $this->clean_decode($_POST['email']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
+                    $this->error_msg = $this->repository->register(strtolower($this->clean_decode($_POST['username'])), password_hash($_POST['password'], PASSWORD_BCRYPT), $this->clean_decode($_POST['email']), $this->clean_decode($_POST['firstname']), $this->clean_decode($_POST['familyname']));
                     $_POST = array();
                 }
                 break;
 
             case 'login':
-                $this->error_msg = ($this->repository->login($_POST['username'], password_hash($_POST['password'], PASSWORD_DEFAULT))) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
+                $this->error_msg = ($this->repository->login($_POST['username'], $_POST['password'])) ? 'Erfolgreich Eingeloggt' : 'Username oder Passwort falsch';
                 break;
 
             case 'logout':
@@ -110,6 +110,7 @@ class Controller
                 $this->error_msg = "";
                 break;
         }
+        $_GET['controller'] = "";
     }
 
     /**
@@ -118,7 +119,7 @@ class Controller
      */
     public function clean_decode(&$var)
     {
-        return htmlspecialchars_decode(utf8_decode(trim($var)));
+        return mysql_real_escape_string(utf8_decode(trim($var)));
     }
 
     /**
@@ -127,7 +128,7 @@ class Controller
      */
     public function clean_encode(&$var)
     {
-        return utf8_encode($var);
+        return mysql_real_escape_string(utf8_encode($var));
     }
 
     /**

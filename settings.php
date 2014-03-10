@@ -8,3 +8,4 @@
 
 // How many entries should be shown on a page
 define('ENTRY_SHOWN_PER_PAGE', 5);
+define('PAGES_SHOWN_IN_NAV', 5);

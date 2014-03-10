@@ -138,6 +138,10 @@ td strong {
     background-color: #898989;
 }
 
+.user h3 {
+    height: 26px;
+}
+
 .right {
     float: right;
 }
@@ -204,6 +208,10 @@ input[type="submit"]:hover {
     font-size: 14px;
 }
 
+#form .form-content {
+    width: 485px;
+}
+
 #form input[type="submit"] {
     height: 32px;
 }
@@ -226,7 +234,7 @@ header {
     right: 0;
 }
 
-#login input[type="text"],#login input[type="password"]{
+#login input[type="text"], #login input[type="password"] {
     width: 100px;
 }
 
@@ -434,6 +442,6 @@ header {
     border-radius: 2px;
 }
 
-#recaptcha_response_field{
+#recaptcha_response_field {
     width: 155px;
 }

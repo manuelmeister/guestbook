@@ -3,9 +3,9 @@
 <head>
     <title>Testsite</title>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js"></script>-->
     <meta charset="UTF-8">
 </head>
 <body>

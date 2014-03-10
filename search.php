@@ -26,7 +26,7 @@ include 'header.php';
 <?php
 if (isset($_GET['search'])) {
     if(isset($_GET['search-keyword']) && !empty($_GET['search-keyword'])){
-        $keyword = $_GET['search-keyword'];
+        $keyword = $controller->clean_encode($_GET['search-keyword']);
         $found_entries = $controller->repository->getPostsByKeyword($keyword);
         $numbers_of_entries = count($found_entries);
         if ($numbers_of_entries) {
@@ -44,7 +44,7 @@ if (isset($_GET['search'])) {
         }
     }
     if(isset($_GET['search-user']) && !empty($_GET['search-user'])){
-        $keyword = $_GET['search-user'];
+        $keyword = $controller->clean_encode($_GET['search-user']);
         $found_users = $controller->repository->getUsersByKeyword($keyword);
         $numbers_of_users = count($found_users);
         if ($numbers_of_users) {

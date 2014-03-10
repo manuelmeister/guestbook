@@ -13,8 +13,8 @@ include 'header.php';
                 echo '<div id="add">
             <h2>Beitragen</h2>
             <form method="post" action="index.php?controller=add" id="form">
-                <input type="text" name="title" placeholder="Titel"/>
-                <input type="text" name="entry" placeholder="Text"/>
+                <input type="text" name="title" placeholder="Titel" class="form-title"/>
+                <input type="text" name="entry" placeholder="Text" class="form-content"/>
                 <input type="submit" name="add" value="Senden"/>
             </form>
         </div>';
@@ -30,21 +30,21 @@ include 'header.php';
         if (isset($_GET['page'])) {
             $current_page = $_GET['page'];
         } else {
-            $current_page = 0;
+            $current_page = 1;
         }
 
         $first_entry = $current_page * ENTRY_SHOWN_PER_PAGE;
 
         $number_rows = $controller->repository->getNumbersOfPosts();
-        $last_page = ($number_rows - ($number_rows % ENTRY_SHOWN_PER_PAGE)) / ENTRY_SHOWN_PER_PAGE;
+        $last_page = (($number_rows - ($number_rows % ENTRY_SHOWN_PER_PAGE)) / ENTRY_SHOWN_PER_PAGE);
 
         if ($current_page > $last_page) {
             header("HTTP/1.0 404 Not Found");
             echo '<p class="entry error">Fehler 404: Seite nicht Gefunden!</p>';
         } else {
 
-            if ($current_page == 0) {
-                $prev_page = 0;
+            if ($current_page == 1) {
+                $prev_page = 1;
             } else {
                 $prev_page = $current_page - 1;
             }
@@ -55,7 +55,7 @@ include 'header.php';
                 $next_page = $current_page + 1;
             }
 
-            $entries = $controller->repository->getPosts(ENTRY_SHOWN_PER_PAGE, $first_entry);
+            $entries = $controller->repository->getPosts(ENTRY_SHOWN_PER_PAGE, $first_entry - ENTRY_SHOWN_PER_PAGE);
 
             ob_start();
             foreach ($entries as $entry) {
@@ -73,29 +73,32 @@ include 'header.php';
 
             function getPagesNav($current_page, $last_page)
             {
-                $page_items_shown = 5;
                 $output = '<div class="page-nav">';
-                if ($last_page > $page_items_shown) {
-                    $i = 0;
-                    $j1 = $j2 = $current_page - ($page_items_shown - 1) / 2;
-                    $k1 = $k2 = $current_page + ($page_items_shown - 1) / 2;
+                if (PAGES_SHOWN_IN_NAV <= $last_page) {
+                    $i = 1;
+                    $j1 = $j2 = $current_page - (PAGES_SHOWN_IN_NAV - 1) / 2;
+                    $k1 = $k2 = $current_page + (PAGES_SHOWN_IN_NAV - 1) / 2;
                     if ($j1 > 1) {
-                        $output .= "<li><a href='index.php?page=0'>0</a></li>";
+                        $output .= "<li><a href='index.php?page=1'>1</a></li>";
                         $output .= "<li><a>...</a></li>";
-                    } elseif ($j1 == 1) {
-                        $output .= "<li><a href='index.php?page=0'>0</a></li>";
+                    } elseif ($j1 <= 1) {
+                        if ($current_page == 1) {
+                            $output .= "<li class='current-page'><a href='index.php?page=1'>1</a></li>";
+                        } else {
+                            $output .= "<li><a href='index.php?page=1'>1</a></li>";
+                        }
                     }
-                    while ($i < $page_items_shown) {
-                        if ($j2 < 0) {
+                    while ($i < PAGES_SHOWN_IN_NAV) {
+                        if ($j2 < 1) {
                             $j2++;
                             $k2++;
                         } elseif ($k2 > $last_page) {
                             $k2--;
                             $j2--;
                         } else {
-                            $output .= page_request($current_page, $j2);
                             $j2++;
                             $i++;
+                            $output .= page_request($current_page, $j2);
                         }
                     }
                     if ($k1 < $last_page - 1) {
@@ -116,7 +119,7 @@ include 'header.php';
             echo "<div class='entry-nav'>
             <nav>
                     <div>
-                        <li><a href='index.php?page=0'><img src='img/first-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Erste Seite</a></li>
+                        <li><a href='index.php?page=1'><img src='img/first-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Erste Seite</a></li>
                         <li><a href='index.php?page=$prev_page'><img src='img/arrow-left-512.png' width='20px' height='20px' style='float: left;margin-right: 5px'>Vorherige Seite</a></li>
                     </div>";
             echo getPagesNav($current_page, $last_page);

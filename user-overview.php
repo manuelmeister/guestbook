@@ -13,7 +13,7 @@ if (isset($_GET['controller'])) {
 include 'header.php';
 echo '<div id="content" style="clear: both">';
 if (isset($_GET['user'])) {
-    $selected_username = $_GET['user'];
+    $selected_username = htmlspecialchars($_GET['user']);
 
     //Show user
     $user = $controller->repository->getUserProfile($selected_username);

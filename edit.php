@@ -16,15 +16,16 @@ include 'header.php';
         <div class="entry">
             <form action="index.php?controller=save" method="post" class="editform">
                 <p>Zuletzt bearbeitet
-                    am <?php echo $controller->clean_encode($controller->selected_entry->datepublished) ?>
-                    von <?php echo $controller->clean_encode($controller->selected_entry->username) ?></p>
+                    am <?php echo $controller->selected_entry['datepublished'] ?>
+                    von <a
+                        href="user-overview.php?user=<?php echo utf8_encode($controller->selected_entry['username']) . '">' . utf8_encode($controller->selected_entry['username']) ?></a></p>
                 <input type="hidden" name="id"
-                       value="<?php echo $controller->clean_encode($controller->selected_entry->id) ?>"/>
-                <input type="text" name="title"
-                       value="<?php echo $controller->clean_encode($controller->selected_entry->title) ?>"
-                       class="title1" placeholder="Titel"/>
+                    value="<?php echo utf8_encode($controller->selected_entry['id']) ?>"/>
+                    <input type="text" name="title"
+                           value="<?php echo utf8_encode($controller->selected_entry['title']) ?>"
+                           class="title1" placeholder="Titel"/>
                 <input type="text" name="content"
-                       value="<?php echo $controller->clean_encode($controller->selected_entry->content) ?>"
+                       value="<?php echo utf8_encode($controller->selected_entry['content']) ?>"
                        class="content" placeholder="Text"/>
                 <input type="submit" name="save" value="Ändern"/>
             </form>
