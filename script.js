@@ -6,7 +6,7 @@ function check_username() {
             url: "check_username.php",
             data: {'username': username},
             success: function (username_exists) {
-                if(username_exists){
+                if(username_exists == 1){
                     $('.usernameinfo').text("Diesen Benutzernamen gibt es bereits!");
                 }else{
                     $('.usernameinfo').text("");
