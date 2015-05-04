@@ -14,7 +14,7 @@ if(isset($_GET['id'])){
     $rs = $db->query("SELECT * FROM guestbook WHERE id='$id' LIMIT 1");
 
     while ($r = $rs->fetch_object()) {
-        $selected_entry = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
+        $selected_entry = new Question($r->id, $r->datepublished, $r->username, $r->title, $r->content);
     }
 
     $entry_template = file_get_contents('templates/single-entry.html');

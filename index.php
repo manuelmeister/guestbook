@@ -62,7 +62,7 @@ include 'header.php';
             $entries = Array();
 
             while ($r = $rs->fetch_object()) {
-                ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
+                ${'entry_' . $r->id} = new Question($r->id, $r->datepublished, $r->username, $r->title, $r->content);
                 array_push($entries, ${'entry_' . $r->id});
             }
 
@@ -77,6 +77,12 @@ include 'header.php';
                 return ($i == $current_page ? "<li class='current-page'><a href='index.php?page=$i'>$i</a></li>" : "<li><a href='index.php?page=$i'>$i</a></li>");
             }
 
+            /**
+             * Displays pagination
+             * @param $current_page
+             * @param $last_page
+             * @return string
+             */
             function getPages($current_page, $last_page)
             {
                 $page_items_shown = 5;

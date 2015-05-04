@@ -22,7 +22,7 @@ if(isset($_GET['user'])){
     $rs_db = $db->query("SELECT * FROM guestbook WHERE username='$selected_username'");
     $entries = Array();
     while ($r = $rs_db->fetch_object()) {
-        ${'entry_' . $r->id} = new entry($r->id, $r->datepublished, $r->username, $r->title, $r->content);
+        ${'entry_' . $r->id} = new Question($r->id, $r->datepublished, $r->username, $r->title, $r->content);
         array_push($entries, ${'entry_' . $r->id});
     }
     $entry_template = file_get_contents('templates/entry.html');

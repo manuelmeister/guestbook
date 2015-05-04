@@ -21,7 +21,7 @@ if (isset($_POST['search'])) {
     $found_entries = Array();
     $db_entry = $db->query("SELECT * FROM guestbook WHERE title LIKE '%$search_value%' OR content LIKE '%$search_value%' OR username LIKE '%$search_value%'");
     while ($found_entry = $db_entry->fetch_object()) {
-        ${'entry_' . $found_entry->id} = new entry($found_entry->id, $found_entry->datepublished, $found_entry->username, $found_entry->title, $found_entry->content);
+        ${'entry_' . $found_entry->id} = new Question($found_entry->id, $found_entry->datepublished, $found_entry->username, $found_entry->title, $found_entry->content);
         array_push($found_entries, ${'entry_' . $found_entry->id});
     }
     if ($found_entries) {
